@@ -40,8 +40,9 @@ namespace LibraryModels
             set { this.authorLastName = value; }
         }
 
+        [Required(ErrorMessage = "Author Last Name cannot be empty")]
 
-        public  int AuthorYear
+        public int AuthorYear
         {
             get { return this.authorYear; ; }
             set { this.authorYear = value; }

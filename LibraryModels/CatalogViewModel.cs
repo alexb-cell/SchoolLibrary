@@ -1,15 +1,14 @@
-﻿using System;
+﻿using DesignPattern.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace LibraryModels
+namespace DesignPattern.ViewModels
 {
     public class CatalogViewModel
     {
-        public List<Author> Authors { get; set; }
         public List<Book> Books { get; set; }
-        public List<Ganre> Ganres { get; set; }
+        public List<TypeBook> TypesBook { get; set; }
     }
 }

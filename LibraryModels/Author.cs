@@ -40,8 +40,8 @@ namespace LibraryModels
             set { this.authorLastName = value; }
         }
 
-        [Required(ErrorMessage = "Author Last Name cannot be empty")]
-
+        [Required(ErrorMessage = "Year cannot be empty")]
+        [RegularExpression(@"^(1[0-9]{3}|20[0-2][0-9])$", ErrorMessage = "The year must be between 1000 and the current year.")]    
         public int AuthorYear
         {
             get { return this.authorYear; ; }
@@ -53,6 +53,8 @@ namespace LibraryModels
             set { this.countryId = value; }
         }
 
+        [Required(ErrorMessage = "Author Picture cannot be empty")]
+        [OnlyImage(ErrorMessage = "The picture must be in image format (jpg, png, gif).")]
         public string AuthorPicture
         {
             get { return this.authorPicture; }

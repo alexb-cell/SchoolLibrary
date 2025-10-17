@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LibraryModels
 {
-    public class Book
+    public class Book:Model
     {
         string bookId;
         string bookName;
@@ -23,6 +24,8 @@ namespace LibraryModels
             set
             {
                 this.bookId = value;
+                ValidateProperty(value, "BookId");
+
             }
         }
         [Required(ErrorMessage = "Book Name cannot be empty")]
@@ -31,7 +34,9 @@ namespace LibraryModels
         public string BookName
         {
                            get { return this.bookName; }
-                set { this.bookName = value; }  
+                set { this.bookName = value;
+                ValidateProperty(value, "BookName");
+            }
         }
 
         [Required(ErrorMessage = "Book Description cannot be empty")]
@@ -39,14 +44,18 @@ namespace LibraryModels
         public string BookDescription
         {
             get { return this.bookDescription; }
-            set { this.bookDescription = value; }   
+            set { this.bookDescription = value;
+                ValidateProperty(value, "BookDescription");
+            }
         }
         [Required(ErrorMessage = "Book Image cannot be empty")]
         [OnlyImage(ErrorMessage = "The image must be in image format (jpg, png, gif).")]
         public string BookImage
         {
             get { return this.bookImage; }
-            set { this.bookImage = value; } 
+            set { this.bookImage = value;
+                ValidateProperty(value, "BookImage");
+            }
         }
     }
 }

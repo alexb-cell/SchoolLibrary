@@ -58,7 +58,7 @@ namespace LibraryModels.Models
         }
 
         [Required(ErrorMessage = "You must enter Reader Image")]
-        [OnlyImage(ErrorMessage = "Image must be in jpg, jpeg, png or bmp format")]]
+        [OnlyImage(ErrorMessage = "Image must be in jpg, jpeg, png or bmp format")]
         public string ReaderImage
         {
             get { return readerImage; }

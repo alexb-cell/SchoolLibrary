@@ -8,8 +8,8 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-           CurrensyList();
-           
+            TestCurrencyApi2();
+
             Console.ReadLine();
         }
 
@@ -85,12 +85,70 @@ namespace Testing
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-              //  Console.WriteLine(body);
+                //  Console.WriteLine(body);
 
-                Dictionary<string,string> all = JsonSerializer.Deserialize<Dictionary<string, string>>(body);
-                foreach(KeyValuePair<string,string> keyValuePair in all)
+                Dictionary<string, string> all = JsonSerializer.Deserialize<Dictionary<string, string>>(body);
+                foreach (KeyValuePair<string, string> keyValuePair in all)
                 { Console.WriteLine(keyValuePair.Value); }
 
+            }
+        }
+
+        static async Task TestCurrencyApi()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://exchange-rates7.p.rapidapi.com/codes"),
+                Headers =
+    {
+        { "x-rapidapi-key", "f941083369msh224539dcf0b2026p1db183jsna6addf01cf75" },
+        { "x-rapidapi-host", "exchange-rates7.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                CurrencyTest currencyTest = JsonSerializer.Deserialize<CurrencyTest>(body); 
+                foreach(CurrencyCode code in currencyTest.supported_codes)
+                {
+                    Console.WriteLine($"{code.code}  ({code.name})");
+                }
+            }
+        }
+
+         static async Task TestCurrencyApi2()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://currency-conversion-and-exchange-rates.p.rapidapi.com/symbols"),
+                Headers =
+    {
+        { "x-rapidapi-key", "f941083369msh224539dcf0b2026p1db183jsna6addf01cf75" },
+        { "x-rapidapi-host", "currency-conversion-and-exchange-rates.p.rapidapi.com" },
+    },
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+                try
+                {
+                    CurrencySymbols symbols = JsonSerializer.Deserialize<CurrencySymbols>(body);
+                    foreach (KeyValuePair<string,string> keyValuePair in symbols.symbols)
+                    {
+                        Console.WriteLine(keyValuePair.Key+ " " + keyValuePair.Value);
+                    }
+                }
+                catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                }
+                
+                //Console.WriteLine(body);
             }
         }
     }

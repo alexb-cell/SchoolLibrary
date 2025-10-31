@@ -5,17 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace LibraryModels
 {
     public class Ganre
     {
         string ganreId;
         string ganreName;
 
-        public Ganre(string ganreId, string ganreName)
+        public Ganre()
         {
-            this.ganreId = ganreId;
-            this.ganreName = ganreName;
+           
         }
         public string GanreId
         {

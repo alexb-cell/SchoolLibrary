@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryModels.Models
+namespace LibraryModels
 {
     public class Reader
     {

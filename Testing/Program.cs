@@ -1,5 +1,6 @@
 ﻿using LibraryModels;
 using SchoolLibraryWS;
+using System.Data;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
@@ -7,25 +8,24 @@ namespace Testing
 {
     internal class Program
     {
-        static void CheckInsert()
-        {
-            Console.WriteLine("Insert Country Name");
-            string country = Console.ReadLine();
-            DbHelperOledb dbHelperOledb = new DbHelperOledb();
-            string sql = $"Insert into Countries(CountryName) values('{country}')";
-            dbHelperOledb.OpenConnection();
-           int count = dbHelperOledb.Insert(sql);
-            if(count >0)
-                Console.WriteLine( "Ok");
-            else
-                Console.WriteLine("Not Ok");
-            dbHelperOledb.CloseConnection();
 
+        static void CheckCreator()
+        {
+            string sql = "Select * from Authors where AuthorId=47";
+            DbHelperOledb dbHelperOledb = new DbHelperOledb();
+            dbHelperOledb.OpenConnection();
+            IDataReader dataReader = dbHelperOledb.Select(sql);
+            dataReader.Read();
+            ModelCreators modelCreators = new ModelCreators();
+            Author author = modelCreators.AuthorCreator.CreateModel(dataReader);
+            dbHelperOledb.CloseConnection();
+            Console.WriteLine($"{author.AuthorFirstName} {author.AuthorLastName}");
         }
+       
 
         static void Main(string[] args)
         {
-            CheckInsert();
+            CheckCreator();
             Console.ReadLine();
         }
 

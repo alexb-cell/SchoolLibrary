@@ -2,16 +2,13 @@
 using SchoolLibraryWS;
 using System.Data;
 using System.Net.Http.Headers;
-using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 namespace Testing
 {
     internal class Program
     {
-
-        
-       
-
         static void Main(string[] args)
         {
             TestRepository();
@@ -122,6 +119,26 @@ namespace Testing
             Author author = modelCreators.AuthorCreator.CreateModel(dataReader);
             dbHelperOledb.CloseConnection();
             Console.WriteLine($"{author.AuthorFirstName} {author.AuthorLastName}");
+        }
+
+        static void Cripto()
+        {
+            string password = "1234";
+            string salt = CreateSalt(8);
+            using (SHA256 sHA256 = SHA256.Create())
+            {
+                byte[] passbyte = Encoding.UTF8.GetBytes(password);
+            }
+        }
+
+        static string CreateSalt(int bits)
+        {
+            byte[] saltBytes = new byte[bits]; 
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(saltBytes);
+            }
+            return Convert.ToBase64String(saltBytes);
         }
     }
 }

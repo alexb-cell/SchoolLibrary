@@ -5,7 +5,12 @@ namespace SchoolLibraryWS
 {
     public class CountryRepository : Repository, IRepository<Country>
     {
-      
+        public CountryRepository(DbHelperOledb dbHelperOledb,
+                               ModelCreators modelCreators) :
+                               base(dbHelperOledb, modelCreators)
+        {
+
+        }
 
         public bool Create(Country item)
         {

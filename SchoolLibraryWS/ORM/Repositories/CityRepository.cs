@@ -5,7 +5,12 @@ namespace SchoolLibraryWS
 {
     public class CityRepository : Repository, IRepository<City>
     {
-       
+        public CityRepository(DbHelperOledb dbHelperOledb,
+                               ModelCreators modelCreators) :
+                               base(dbHelperOledb, modelCreators)
+        {
+
+        }
         public bool Create(City item)
         {
             string sql = $@"INSERT INTO Cities

@@ -7,6 +7,11 @@ namespace SchoolLibraryWS
 {
     public class AuthoRepository : Repository, IRepository<Author>
     {
+        public AuthoRepository(DbHelperOledb helperOledb, ModelCreators modelCreators)
+            :base(helperOledb, modelCreators)
+        {
+
+        }
         public bool Create(Author model)
         {
             //string sql = @$"Insert into Authors

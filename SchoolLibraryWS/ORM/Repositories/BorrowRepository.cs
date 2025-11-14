@@ -5,7 +5,12 @@ namespace SchoolLibraryWS
 {
     public class BorrowRepository : Repository, IRepository<Borrow>
     {
-       
+        public BorrowRepository(DbHelperOledb dbHelperOledb,
+                              ModelCreators modelCreators) :
+                              base(dbHelperOledb, modelCreators)
+        {
+
+        }
         public bool Create(Borrow item)
         {
             string sql = $@"INSERT INTO Borrows

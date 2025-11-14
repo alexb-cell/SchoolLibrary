@@ -1,4 +1,4 @@
-﻿namespace SchoolLibraryWS.ORM.Repositories
+﻿namespace SchoolLibraryWS
 {
     public class RepositoryUOW
     {
@@ -10,12 +10,29 @@
         GanreRepository ganreRepository;
         ReaderRepository readerRepository;
 
+        DbHelperOledb helperOledb;
+        ModelCreators modelCreators;
+
+        public RepositoryUOW()
+        {
+            this.helperOledb = new DbHelperOledb();
+            this.modelCreators = new ModelCreators();
+        }
+
+        public DbHelperOledb DbHelperOledb
+        {
+            get
+            {
+                return this.helperOledb;
+            }
+        }
+
         public AuthoRepository AuthoRepository
         {
             get
             {
                 if (this.authoRepository == null)
-                    return new AuthoRepository();
+                    return new AuthoRepository(this.helperOledb, this.modelCreators);
                 return this.authoRepository;
             }
         }
@@ -24,7 +41,7 @@
             get
             {
                 if (this.bookRepository == null)
-                    return new BookRepository();
+                    return new BookRepository(this.helperOledb, this.modelCreators);
                 return this.bookRepository;
             }
         }
@@ -34,7 +51,7 @@
             get
             {
                 if (this.countryRepository == null)
-                    return new CountryRepository();
+                    return new CountryRepository(this.helperOledb, this.modelCreators);
                 return this.countryRepository;
             }
         }
@@ -44,7 +61,7 @@
             get
             {
                 if (this.cityRepository == null)
-                    return new CityRepository();
+                    return new CityRepository(this.helperOledb, this.modelCreators);
                 return this.cityRepository;
             }
         }
@@ -54,7 +71,7 @@
             get
             {
                 if (this.ganreRepository == null)
-                    return new GanreRepository();
+                    return new GanreRepository(this.helperOledb, this.modelCreators);
                 return this.ganreRepository;
             }
         }
@@ -64,7 +81,7 @@
             get
             {
                 if (this.readerRepository == null)
-                    return new ReaderRepository();
+                    return new ReaderRepository(this.helperOledb, this.modelCreators);
                 return this.readerRepository;
             }
         }

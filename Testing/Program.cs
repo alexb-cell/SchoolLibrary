@@ -9,24 +9,25 @@ namespace Testing
     internal class Program
     {
 
-        static void CheckCreator()
-        {
-            string sql = "Select * from Authors where AuthorId=47";
-            DbHelperOledb dbHelperOledb = new DbHelperOledb();
-            dbHelperOledb.OpenConnection();
-            IDataReader dataReader = dbHelperOledb.Select(sql);
-            dataReader.Read();
-            ModelCreators modelCreators = new ModelCreators();
-            Author author = modelCreators.AuthorCreator.CreateModel(dataReader);
-            dbHelperOledb.CloseConnection();
-            Console.WriteLine($"{author.AuthorFirstName} {author.AuthorLastName}");
-        }
+        
        
 
         static void Main(string[] args)
         {
-            CheckCreator();
+            TestRepository();
             Console.ReadLine();
+        }
+
+        static void TestRepository()
+        {
+            RepositoryUOW repositoryUOW = new RepositoryUOW();
+            repositoryUOW.DbHelperOledb.OpenConnection();
+            List<Author> authors = repositoryUOW.AuthoRepository.GetAll();
+            repositoryUOW.DbHelperOledb.CloseConnection();
+            foreach(Author author in authors)
+            {
+                Console.WriteLine($"{author.AuthorLastName} {author.AuthorFirstName}");
+            }
         }
 
         static void TestBook()
@@ -108,6 +109,19 @@ namespace Testing
                 { Console.WriteLine(keyValuePair.Value); }
 
             }
+        }
+
+        static void CheckCreator()
+        {
+            string sql = "Select * from Authors where AuthorId=47";
+            DbHelperOledb dbHelperOledb = new DbHelperOledb();
+            dbHelperOledb.OpenConnection();
+            IDataReader dataReader = dbHelperOledb.Select(sql);
+            dataReader.Read();
+            ModelCreators modelCreators = new ModelCreators();
+            Author author = modelCreators.AuthorCreator.CreateModel(dataReader);
+            dbHelperOledb.CloseConnection();
+            Console.WriteLine($"{author.AuthorFirstName} {author.AuthorLastName}");
         }
     }
 }

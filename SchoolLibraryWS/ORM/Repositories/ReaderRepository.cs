@@ -1,11 +1,17 @@
 ﻿using LibraryModels;
 using System.Data;
+using System.Runtime.InteropServices.Marshalling;
 
 namespace SchoolLibraryWS
 {
     public class ReaderRepository : Repository, IRepository<Reader>
     {
-       
+        public ReaderRepository(DbHelperOledb dbHelperOledb,
+                              ModelCreators modelCreators) :
+                              base(dbHelperOledb, modelCreators)
+        {
+
+        }
         public bool Create(Reader item)
         {
             string sql = $@"INSERT INTO Readers
@@ -93,6 +99,20 @@ namespace SchoolLibraryWS
             return this.helperOledb.Insert(sql) > 0;
         }
 
-      
+        public string Login(string nickName, string password)
+        {
+            string sql = @"Select ReaderId from Readers 
+                           where ReaderNickName=@ReaderNickName
+                           and ReaderPassword=@ReaderPassword";
+            this.helperOledb.AddParameter("@ReaderNickName", nickName);
+            this.helperOledb.AddParameter("@ReaderPassword", password);
+           using(IDataReader reader = this.helperOledb.Select(sql))
+            {
+                if (reader.Read() == true)
+                    return reader["ReaderId"].ToString();
+                return null;
+            }
+
+        }
     }
 }

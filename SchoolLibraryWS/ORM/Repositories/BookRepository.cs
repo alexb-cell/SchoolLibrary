@@ -5,7 +5,12 @@ namespace SchoolLibraryWS
 {
     public class BookRepository : Repository, IRepository<Book>
     {
-       
+       public BookRepository(DbHelperOledb dbHelperOledb,
+                             ModelCreators modelCreators):
+                             base(dbHelperOledb, modelCreators)
+        {
+
+        }
 
         public bool Create(Book model)
         {
@@ -98,6 +103,41 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@BookImage", item.BookImage);
             this.helperOledb.AddParameter("@BookId", item.BookId);
             return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public List<Book> GetBooksByGanre(string ganreId)
+        {
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksGenres.TypeBookId
+                           FROM Books INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
+                           WHERE (((BooksGenres.TypeBookId)=@GanreId))"; ;
+            this.helperOledb.AddParameter("@GanreId", ganreId);
+
+            List<Book> books = new List<Book>();
+            using (IDataReader reader = this.helperOledb.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    books.Add(this.modelCreators.BookCreator.CreateModel(reader));
+                }
+            }
+            return books;
+        }
+        public List<Book> GetBooksByAuthor(string authorId)
+        {
+            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksAuthors.AuthorId
+                          FROM Books INNER JOIN BooksAuthors ON Books.BookId = BooksAuthors.BookId
+                          WHERE (((BooksAuthors.AuthorId)=@AuthorId));";
+            this.helperOledb.AddParameter("@AuthorId", authorId);
+
+            List<Book> books = new List<Book>();
+            using (IDataReader reader = this.helperOledb.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    books.Add(this.modelCreators.BookCreator.CreateModel(reader));
+                }
+            }
+            return books;
         }
     }
 }

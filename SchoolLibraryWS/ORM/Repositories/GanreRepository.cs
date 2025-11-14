@@ -5,7 +5,12 @@ namespace SchoolLibraryWS
 {
     public class GanreRepository : Repository, IRepository<Ganre>
     {
-        
+        public GanreRepository(DbHelperOledb dbHelperOledb,
+                             ModelCreators modelCreators) :
+                             base(dbHelperOledb, modelCreators)
+        {
+
+        }
         public bool Create(Ganre item)
         {
             string sql = $@"INSERT INTO Ganres

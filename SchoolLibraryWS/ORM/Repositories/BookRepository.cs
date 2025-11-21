@@ -1,4 +1,5 @@
 ﻿using LibraryModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Data;
 
 namespace SchoolLibraryWS
@@ -138,6 +139,15 @@ namespace SchoolLibraryWS
                 }
             }
             return books;
+        }
+
+        public List<Book> GetBooksByPage(int page)
+        {
+            int booksperPage = 10;
+            List<Book> books = this.GetAll();
+            return books.Skip(booksperPage * (page-1)).Take(booksperPage).ToList();
+
+
         }
     }
 }

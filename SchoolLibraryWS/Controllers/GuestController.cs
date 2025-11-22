@@ -20,10 +20,13 @@ namespace SchoolLibraryWS.Controllers
         public CatalogViewModel GetBookCatalog(string authorId = null, string ganreId = null, int page = 0)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
+            catalogViewModel.GanreId = ganreId;
+            catalogViewModel.AuthorId = authorId;
+            catalogViewModel.Page = page;
+            catalogViewModel.PagePerPage = 10;
             try
             {
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
-
                 catalogViewModel.Ganres = this.repositoryUOW.GanreRepository.GetAll();
                 catalogViewModel.Authors = this.repositoryUOW.AuthoRepository.GetAll();
                 if (authorId == null && ganreId == null && page == 0)
@@ -46,17 +49,15 @@ namespace SchoolLibraryWS.Controllers
                 {
                     int booksperPage = 10;
                     catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
-                    catalogViewModel.Books.Skip(booksperPage * (page - 1)).Take(booksperPage).ToList();
+                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
 
                 }
                 else if (authorId == null && ganreId != null && page != 0)
                 {
                     int booksperPage = 10;
                     catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
-                    catalogViewModel.Books.Skip(booksperPage * (page - 1)).Take(booksperPage).ToList();
-
+                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 }
-                
                 return catalogViewModel;
             }
             catch(Exception ex)
@@ -69,5 +70,42 @@ namespace SchoolLibraryWS.Controllers
             }
 
         }
+
+        [HttpGet]
+        public Book GetBook(string bookId)
+        {
+            try
+            {
+                this.repositoryUOW.DbHelperOledb.OpenConnection();
+                return this.repositoryUOW.BookRepository.GetById(bookId);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                this.repositoryUOW.DbHelperOledb.CloseConnection();
+            }
+        }
+
+        [HttpPost]   
+        public bool RegisterReader([FromBody] Reader reader)
+        {
+            try
+            {
+                this.repositoryUOW.DbHelperOledb.OpenConnection();
+                return this.repositoryUOW.ReaderRepository.Create(reader);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            finally
+            {
+                this.repositoryUOW.DbHelperOledb.CloseConnection();
+            }
+        }
+
     }
 }

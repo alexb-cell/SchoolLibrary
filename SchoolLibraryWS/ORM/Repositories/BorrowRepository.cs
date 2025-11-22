@@ -79,5 +79,28 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@BorrowId", item.BorrowId);
             return this.helperOledb.Insert(sql) > 0;
         }
+
+        public List<Borrow> GetReaderBorrows(string readerId)
+        {
+            List<Borrow> borrows = new List<Borrow>();
+            string sql = @"SELECT
+                            Borrows.BorrowId,
+                            Borrows.ReaderId,
+                            Borrows.BorrowDate,
+                            Borrows.BorrowStatus,
+                            Borrows.BookId
+                        FROM
+                            Borrows
+                        WHERE Borrows.ReaderId  = @ReaderId)
+                              AND Borrows.BorrowStatus=2);";
+            using (IDataReader reader = this.helperOledb.Select(sql))
+            {
+                while (reader.Read())
+                {
+                    borrows.Add(this.modelCreators.BorrowCreator.CreateModel(reader));
+                }
+            }
+            return borrows;
+        }
     }
 }

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace LibraryModels
 {
-    public class BookViewModel
+    public class ReaderBorrow
     {
+        public Borrow Borrow { get; set; }
         public Book Book { get; set; }
-        public List<string> Authors { get; set; }
-        public List<string> Ganres { get; set; }
     }
 }

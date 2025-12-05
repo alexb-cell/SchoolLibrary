@@ -1,5 +1,6 @@
 ﻿using LibraryModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using ModelLibrary;
 using System.Data;
 
 namespace SchoolLibraryWS
@@ -19,7 +20,7 @@ namespace SchoolLibraryWS
                             (
                               BookName, 
                               BookDescription, 
-                              BookImage,BookCopies
+                              BookImage,
                             )
                            VALUES
                            (
@@ -149,5 +150,68 @@ namespace SchoolLibraryWS
 
 
         }
+
+        public bool AddBookAuthor(string bookId, string authorid)
+        {
+            string sql = $@"INSERT INTO BooksAuthors
+                            (
+                              BookId, 
+                              AuthorId, 
+                            )
+                           VALUES
+                           (
+                               @BookId,  @AuthorId,
+                           )";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@AuthorId", authorid);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public bool AdBookGanre(string bookId, string ganreId)
+        {
+          string sql = $@"INSERT INTO BooksGenres
+                            (
+                              BookId, 
+                              GanreId, 
+                            )
+                           VALUES
+                           (
+                               @BookId,  @GanreId,
+                           )";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@GanreId", ganreId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public bool DeleteBookAuthor(string bookId, string authorid)
+        {
+            string sql = $@"delete from BooksAuthors where BookId=@BookId And AuthorId=@AuthorId";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@AuthorId", authorid);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
+        internal bool DeleteBookGanre(string bookId, string ganreId)
+        {
+            string sql = $@"delete from BooksGenres where BookId=@BookId And GanreId=@GanreId";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@GanreId", ganreId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public bool GeleteBookAuthors(string bookId)
+        {
+            string sql = $@"delete from BooksAuthors where BookId=@BookId";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public bool DeleteBookGanres(string bookId)
+        {
+            string sql = $@"delete from BooksGenres where BookId=@BookId";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+    }
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace SchoolLibraryWS
+﻿
+namespace SchoolLibraryWS
 {
     public class RepositoryUOW
     {
@@ -66,6 +67,15 @@
             }
         }
 
+        public BorrowRepository BorrowRepository
+        {
+            get
+            {
+                if (this.borrowRepository == null)
+                    return new BorrowRepository(this.helperOledb, this.modelCreators);
+                return this.borrowRepository;
+            }
+        }
         public GanreRepository GanreRepository
         {
             get
@@ -86,7 +96,24 @@
             }
         }
 
+        public void BeginTransaction()
+        {
+            this.DbHelperOledb.OpenTransaction();
+        }
+        public void Commit()
+        {
+            this.DbHelperOledb.Commit();
+        }
 
+        public void Rollback()
+        {
+            this.DbHelperOledb.RollBack();
+        }
 
+        public string GetLastInsertedId()
+        {
+            
+            return this.DbHelperOledb.GetLastInsertedId();
+        }
     }
 }

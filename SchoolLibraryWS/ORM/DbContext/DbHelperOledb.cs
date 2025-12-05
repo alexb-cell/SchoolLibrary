@@ -13,9 +13,9 @@ namespace SchoolLibraryWS
         public DbHelperOledb()
         {
             this.oleDbConnection = new OleDbConnection();
-            this.oleDbConnection.ConnectionString = $@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\AlexLesson\2025-2026\SchoolLibarary\SchoolLibraryWS\App_Data\Library.accdb;Persist Security Info=True";
+            //this.oleDbConnection.ConnectionString = $@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\AlexLesson\2025-2026\SchoolLibarary\SchoolLibraryWS\App_Data\Library.accdb;Persist Security Info=True";
 
-           // this.oleDbConnection.ConnectionString = $@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Directory.GetCurrentDirectory()}\App_Data\Library.accdb;Persist Security Info=True";
+            this.oleDbConnection.ConnectionString = $@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={Directory.GetCurrentDirectory()}\App_Data\Library.accdb;Persist Security Info=True";
             this.dbCommand = new OleDbCommand();
             this.dbCommand.Connection = this.oleDbConnection;
         }
@@ -76,10 +76,17 @@ namespace SchoolLibraryWS
             return records;
         }
       
-        public void AddParameter(string name, string value)
+        public void AddParameter(string name, object value)
         {
             this.dbCommand.Parameters.Add(new OleDbParameter(name, value));
         }
 
+        internal string GetLastInsertedId()
+        {
+            string sql = "SELECT @@IDENTITY";
+            this.dbCommand.CommandText = sql;
+            object result = this.dbCommand.ExecuteScalar();
+            return result.ToString();
+        }
     }
 }

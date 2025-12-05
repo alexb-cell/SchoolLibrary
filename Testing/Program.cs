@@ -11,10 +11,35 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            TestRepository();
+            for(int i=1; i<=10; i++)
+            { 
+               Console.WriteLine("Insert password");
+                string password = Console.ReadLine();
+                string salt = GetSalt(8);
+                string hash = GetHash(password, salt);
+                Console.WriteLine(salt);
+                Console.WriteLine(hash);
+            }
             Console.ReadLine();
         }
 
+        static string GetHash(string password, string salt)
+        {
+            string combine = password + salt;
+            byte[] bytes = System.Text.UTF8Encoding.UTF8.GetBytes(combine);
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] hash = sha256.ComputeHash(bytes);
+                return Convert.ToBase64String(hash);
+            }
+        }
+        static string GetSalt(int lenght)
+        {
+            byte[] bytes = new byte[lenght];
+            RandomNumberGenerator.Fill(bytes);
+            string s = Convert.ToBase64String(bytes);
+            return s; ;
+        }
         static void TestRepository()
         {
             RepositoryUOW repositoryUOW = new RepositoryUOW();

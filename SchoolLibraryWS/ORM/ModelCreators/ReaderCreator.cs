@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,8 @@ namespace SchoolLibraryWS
                 ReaderLastName = Convert.ToString(reader["ReaderLastName"]),
                 ReaderNickName = Convert.ToString(reader["ReaderNickName"]),
                 ReaderPassword = Convert.ToString(reader["ReaderPassword"]),
-                ReaderTelephone = Convert.ToString(reader["ReaderTelephone"])
-
+                ReaderTelephone = Convert.ToString(reader["ReaderTelephone"]),
+                ReaderSalt = Convert.ToString(reader["ReaderSalt"])
             };
         }
     }

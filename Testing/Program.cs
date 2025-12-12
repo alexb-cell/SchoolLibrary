@@ -1,6 +1,8 @@
 ﻿using LibraryModels;
+using LibraryWSClient;
 using SchoolLibraryWS;
 using System.Data;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,16 +13,37 @@ namespace Testing
     {
         static void Main(string[] args)
         {
-            for(int i=1; i<=10; i++)
+           
+            Console.ReadLine();
+            TestLibraryClient();
+            Console.ReadLine();
+        }
+
+        static void TestLibraryClient()
+        {
+            ApiClient<Book> apiClient = new ApiClient<Book>();
+            apiClient.Scheme = "http";
+            apiClient.Host = "localhost";
+            apiClient.Port = 5273;
+            apiClient.Path = "api/Guest/CatalogViewModel";
+            apiClient.AddParameter("bookId", "76");
+            Book book = apiClient.GetAsync().Result;
+            Console.WriteLine(book.BookName);
+            Console.WriteLine(book.BookDescription);
+
+        }
+        
+        static void TestHash()
+        {
+             for(int i=1; i<=10; i++)
             { 
-               Console.WriteLine("Insert password");
+                Console.WriteLine("Insert password");
                 string password = Console.ReadLine();
                 string salt = GetSalt(8);
                 string hash = GetHash(password, salt);
                 Console.WriteLine(salt);
                 Console.WriteLine(hash);
             }
-            Console.ReadLine();
         }
 
         static string GetHash(string password, string salt)

@@ -17,6 +17,10 @@ namespace LibraryModels
         int countryId;
         string authorPicture;
 
+        public Author()
+        {
+
+        }
 
         public string AuthorId
         {

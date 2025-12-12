@@ -53,7 +53,7 @@ namespace SchoolLibraryWS.Controllers
         [HttpGet]
         public List<ReaderBorrow> GetReaderBorrows(string readerId)
         {
-            List <ReaderBorrow> readerBorrows = new List<ReaderBorrow>(); 
+            List<ReaderBorrow> readerBorrows = new List<ReaderBorrow>();
             try
             {
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
@@ -94,7 +94,7 @@ namespace SchoolLibraryWS.Controllers
                     BorrowDate = DateTime.Now.ToString("yyyy-MM-dd"),
                     BorrowStatus = "1"
                 };
-                return this.repositoryUOW.BorrowRepository.Create(borrow);  
+                return this.repositoryUOW.BorrowRepository.Create(borrow);
             }
             catch (Exception ex)
             {
@@ -105,4 +105,5 @@ namespace SchoolLibraryWS.Controllers
                 this.repositoryUOW.DbHelperOledb.CloseConnection();
             }
         }
+    }
 }

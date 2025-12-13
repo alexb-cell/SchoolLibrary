@@ -21,16 +21,25 @@ namespace Testing
 
         static void TestLibraryClient()
         {
-            ApiClient<Book> apiClient = new ApiClient<Book>();
+            ApiClient<CatalogViewModel> apiClient = new ApiClient<CatalogViewModel>();
             apiClient.Scheme = "http";
             apiClient.Host = "localhost";
             apiClient.Port = 5273;
-            apiClient.Path = "api/Guest/CatalogViewModel";
+            apiClient.Path = "api/Guest/GetBookCatalog";
             apiClient.AddParameter("bookId", "76");
-            Book book = apiClient.GetAsync().Result;
-            Console.WriteLine(book.BookName);
-            Console.WriteLine(book.BookDescription);
-
+            CatalogViewModel catalogViewModel = apiClient.GetAsync().Result;
+            foreach(Book book in catalogViewModel.Books)
+            {
+                Console.WriteLine(book.BookName);
+            }
+            foreach(Author author in catalogViewModel.Authors)
+            {
+                Console.WriteLine($"{author.AuthorFirstName} {author.AuthorLastName}");
+            }
+            foreach(Ganre ganre in catalogViewModel.Ganres)
+            {
+                Console.WriteLine(ganre.GanreName);
+            }   
         }
         
         static void TestHash()

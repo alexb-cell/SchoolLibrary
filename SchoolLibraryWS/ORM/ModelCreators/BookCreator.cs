@@ -11,7 +11,7 @@ namespace SchoolLibraryWS
                 BookDescription = Convert.ToString(reader["BookDescription"]),
                 BookId = Convert.ToString(reader["BookId"]),
                 BookImage = Convert.ToString(reader["BookImage"]),
-                BookName = Convert.ToString(reader["BookImage"])
+                BookName = Convert.ToString(reader["BookName"])
             };
         }
     }

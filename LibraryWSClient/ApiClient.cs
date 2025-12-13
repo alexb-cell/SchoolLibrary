@@ -62,7 +62,7 @@ namespace LibraryWSClient
                 {
                     if (httpResponse.IsSuccessStatusCode == true)
                     {
-                        string result = httpResponse.Content.ToString();
+                        string result = await httpResponse.Content.ReadAsStringAsync();
                         JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
                         jsonSerializerOptions.PropertyNameCaseInsensitive = true;
                         T model = JsonSerializer.Deserialize<T>(result, jsonSerializerOptions);
@@ -100,7 +100,7 @@ namespace LibraryWSClient
             {
                 httpRequest.Method = HttpMethod.Post;
                 httpRequest.RequestUri = this.uriBuilder.Uri;
-                MultipartFormDataContent multipartFormData = 
+                MultipartFormDataContent multipartFormData =
                                          new MultipartFormDataContent();
                 string json = JsonSerializer.Serialize<T>(model);
                 StringContent modelContent = new StringContent(json);
@@ -130,10 +130,10 @@ namespace LibraryWSClient
                 string json = JsonSerializer.Serialize<T>(model);
                 StringContent modelContent = new StringContent(json);
                 multipartFormData.Add(modelContent, "model");
-                foreach(FileStream fileStream in files)
-                { 
-                   StreamContent streamContent = new StreamContent(fileStream);
-                   multipartFormData.Add(streamContent, "file", fileStream.Name);
+                foreach (FileStream fileStream in files)
+                {
+                    StreamContent streamContent = new StreamContent(fileStream);
+                    multipartFormData.Add(streamContent, "file", fileStream.Name);
                 }
                 httpRequest.Content = multipartFormData;
                 using (HttpResponseMessage responseMessage =
@@ -146,3 +146,4 @@ namespace LibraryWSClient
             }
         }
     }
+}

@@ -94,7 +94,7 @@ namespace LibraryWSClient
         }
 
 
-        public async Task<bool> PostAsync(T model, FileStream file)
+        public async Task<bool> PostAsync(T model, Stream file)
         {
             using (HttpRequestMessage httpRequest = new HttpRequestMessage())
             {
@@ -106,8 +106,7 @@ namespace LibraryWSClient
                 StringContent modelContent = new StringContent(json);
                 multipartFormData.Add(modelContent, "model");
                 StreamContent streamContent = new StreamContent(file);
-                multipartFormData.Add(streamContent, "file", file.Name);
-                httpRequest.Content = multipartFormData;
+                multipartFormData.Add(streamContent, "file", "file");
                 using (HttpResponseMessage responseMessage =
                       await this.httpClient.SendAsync(httpRequest))
                 {
@@ -119,7 +118,7 @@ namespace LibraryWSClient
         }
 
 
-        public async Task<bool> PostAsync(T model, List<FileStream> files)
+        public async Task<bool> PostAsync(T model, List<Stream> files)
         {
             using (HttpRequestMessage httpRequest = new HttpRequestMessage())
             {
@@ -133,7 +132,7 @@ namespace LibraryWSClient
                 foreach (FileStream fileStream in files)
                 {
                     StreamContent streamContent = new StreamContent(fileStream);
-                    multipartFormData.Add(streamContent, "file", fileStream.Name);
+                    multipartFormData.Add(streamContent, "file", "file");
                 }
                 httpRequest.Content = multipartFormData;
                 using (HttpResponseMessage responseMessage =

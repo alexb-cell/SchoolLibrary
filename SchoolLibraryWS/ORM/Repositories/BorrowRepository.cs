@@ -80,7 +80,7 @@ namespace SchoolLibraryWS
             return this.helperOledb.Insert(sql) > 0;
         }
 
-        public List<Borrow> GetReaderBorrows(string readerId)
+        public List<Borrow> GetReaderBorrows(string readerId,string borrowStatus="2")
         {
             List<Borrow> borrows = new List<Borrow>();
             string sql = @"SELECT
@@ -92,7 +92,9 @@ namespace SchoolLibraryWS
                         FROM
                             Borrows
                         WHERE Borrows.ReaderId  = @ReaderId)
-                              AND Borrows.BorrowStatus=2);";
+                              AND Borrows.BorrowStatus=@BorrowStatus";
+            this.helperOledb.AddParameter("@BorrowStatus", borrowStatus);
+
             using (IDataReader reader = this.helperOledb.Select(sql))
             {
                 while (reader.Read())

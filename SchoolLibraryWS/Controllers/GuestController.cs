@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using LibraryModels;
 using static System.Reflection.Metadata.BlobBuilder;
+using System.Reflection.PortableExecutable;
 
 namespace SchoolLibraryWS.Controllers
 {
@@ -107,5 +108,23 @@ namespace SchoolLibraryWS.Controllers
             }
         }
 
+        [HttpGet]
+        public List<City> GetCities()
+        {
+            try
+            {
+                this.repositoryUOW.DbHelperOledb.OpenConnection();
+                return this.repositoryUOW.CityRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                this.repositoryUOW.DbHelperOledb.CloseConnection();
+            }
+
+        }
     }
 }

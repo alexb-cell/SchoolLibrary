@@ -51,13 +51,13 @@ namespace SchoolLibraryWS.Controllers
         }
 
         [HttpGet]
-        public List<ReaderBorrow> GetReaderBorrows(string readerId)
+        public List<ReaderBorrow> GetReaderBorrows(string readerId,string borrowStatus)
         {
             List<ReaderBorrow> readerBorrows = new List<ReaderBorrow>();
             try
             {
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
-                List<Borrow> borrows = this.repositoryUOW.BorrowRepository.GetReaderBorrows(readerId);
+                List<Borrow> borrows = this.repositoryUOW.BorrowRepository.GetReaderBorrows(readerId, borrowStatus);
                 foreach (var borrow in borrows)
                 {
                     Book book = this.repositoryUOW.BookRepository.GetById(borrow.BookId);

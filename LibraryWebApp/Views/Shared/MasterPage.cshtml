@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "MasterPage";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/styles/masterpage.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div class="wraper">
+        <div class="controlBar">
+            <header class="header">
+                <section class="logo">
+                    <img class="logoImage" src="~/images/logo4.png" />
+                    <p class="logoText"></p>
+                </section>
+                <section class="navigation">
+                    <p class="filterText">Navigation menu</p>
+                    <div class="navMenu">
+                        <span class="menuItem"><a href="http://localhost:5160/Guest/ViewBookCatalog">Book Catalog</a></span>
+                        <span class="menuItem"><a href="SignUp.html">Sign in</a></span>
+                        <span class="menuItem"><a href="SignIn.html">Sign up</a></span>
+                    </div>
+                </section>
+
+
+            </header>
+            <footer class="footer">
+            </footer>
+        </div>
+        <div class="dataBar">
+           @RenderBody()
+        </div>
+    </div>
+</body>
+</html>

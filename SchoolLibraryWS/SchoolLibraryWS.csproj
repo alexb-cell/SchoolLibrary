@@ -15,10 +15,4 @@
     <ProjectReference Include="..\LibraryModels\LibraryModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Images\Books\" />
-    <Folder Include="wwwroot\Images\Authors\" />
-    <Folder Include="wwwroot\Images\Readers\" />
-  </ItemGroup>
-
 </Project>

@@ -212,6 +212,17 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@BookId", bookId);
             return this.helperOledb.Insert(sql) > 0;
         }
+
+        public int GetBookCount()
+        {
+            string sql = "Select Count(BookId) as BookCount from Books";
+            using (IDataReader reader = this.helperOledb.Select(sql))
+            {
+                reader.Read();
+                return Convert.ToInt32(reader["BookCount"]);
+            }
+
+        }
     }
     }
 

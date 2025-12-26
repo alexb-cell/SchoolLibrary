@@ -59,6 +59,10 @@ namespace SchoolLibraryWS.Controllers
                     catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
                     catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 }
+                int books = this.repositoryUOW.BookRepository.GetBookCount();
+                catalogViewModel.PageCount = books/ catalogViewModel.PagePerPage;
+                if (books % catalogViewModel.PagePerPage > 0)
+                    catalogViewModel.PageCount++;
                 return catalogViewModel;
             }
             catch(Exception ex)

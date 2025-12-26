@@ -68,8 +68,9 @@ namespace LibraryWebApp.Controllers
             client.Host = "localhost";
             client.Port = 5273;
             client.Path = "api/Guest/GetCities";
-            bool ok = await client.PostAsync(reader,file.OpenReadStream());
+            bool ok = await client.PostAsync(reader, file.OpenReadStream());
             return View();
-            
+
+        }
     }
 }

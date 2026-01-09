@@ -3,6 +3,7 @@ using LibraryWSClient;
 using ModelLibrary;
 using LibraryModels;
 using System.Net;
+using System.IO;
 
 namespace LibraryWebApp.Controllers
 {
@@ -50,27 +51,65 @@ namespace LibraryWebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewRegistrationForm()
         {
+            RegistrationViewModel registrationViewModel =new RegistrationViewModel();
+            registrationViewModel.Reader = null;
             ApiClient<List<City>> client = new ApiClient<List<City>>();
             client.Scheme = "http";
             client.Host = "localhost";
             client.Port = 5273;
             client.Path = "api/Guest/GetCities";
-            List<City> cities = await client.GetAsync();
-            return View(cities);
+            registrationViewModel.Cities = await client.GetAsync();
+            return View(registrationViewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Registration(Reader reader, IFormFile file)
         {
-            reader.ReaderImage = file.FileName;
-            ApiClient<Reader> client = new ApiClient<Reader>();
+            List<City> cities = await GetAllCitiesAsync();
+            if (ModelState.IsValid == false)
+            {
+                RegistrationViewModel registrationViewModel = new RegistrationViewModel();
+                registrationViewModel.Reader = reader;
+                registrationViewModel.Cities = cities;
+                return View("ViewRegistrationForm", registrationViewModel);
+            }
+            bool ok =await SendReader(reader, file);
+            if (ok == true)
+            {
+                HttpContext.Session.SetString("readerId", reader.ReaderId);
+                return RedirectToAction("GetReaderBorrows", "Reader");
+            }
+            RegistrationViewModel registrationViewModel2 = new RegistrationViewModel();
+            registrationViewModel2.Reader = reader;
+          
+            registrationViewModel2.Cities = cities;
+            ViewBag.Error = true;
+            return View("ViewRegistrationForm", registrationViewModel2);
+
+           
+
+        }
+
+        private async Task<List<City>> GetAllCitiesAsync()
+        {
+            ApiClient<List<City>> client = new ApiClient<List<City>>();
             client.Scheme = "http";
             client.Host = "localhost";
             client.Port = 5273;
             client.Path = "api/Guest/GetCities";
-            bool ok = await client.PostAsync(reader, file.OpenReadStream());
-            return View();
+            return await client.GetAsync();
 
+        }
+
+        private async Task<bool> SendReader(Reader reader, IFormFile file)
+        {
+            ApiClient<Reader> clientReader = new ApiClient<Reader>();
+            reader.ReaderImage = Path.GetExtension(file.FileName);
+            clientReader.Scheme = "http";
+            clientReader.Host = "localhost";
+            clientReader.Port = 5273;
+            clientReader.Path = "api/Guest/RegisterReader";
+            return  await clientReader.PostAsync(reader, file.OpenReadStream());
         }
     }
 }

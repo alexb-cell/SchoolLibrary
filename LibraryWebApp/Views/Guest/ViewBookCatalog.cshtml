@@ -9,7 +9,7 @@
 @foreach(Book book in Model.Books)
 {
     <div class="book">
-        <a href="ViewBook.html">
+            <a href="http://locolhost:5160/guest/ViewBookCatalog/?bookId=@book.BookId">
                 <img class="bookPicture" 
                     src="http://localhost:5273/Images/Books/@book.BookImage" />
         </a>

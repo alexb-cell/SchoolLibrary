@@ -55,11 +55,11 @@
         </li>
         <li class="field">
             <label class="inputLable">Reader City</label>
-            <select asp-for="Reader.CityId" class="inputData" type="text" name="CityId" id="CityId">
+            <select asp-for="Reader.CityId" class="inputData" type="text" >
                 <option value="0" selected>Select city</option>
                 @foreach(City city in Model.Cities)
                 {
-                    <option  value="@city.CityId" selected>@city.CityName</option>
+                    <option  value="@city.CityId">@city.CityName</option>
                 }
                 
             </select>

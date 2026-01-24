@@ -11,6 +11,7 @@ namespace LibraryModels
     {
         public override bool IsValid(object? value)
         {
+            if (value == null) return false;
            string word = value.ToString();
            char firstLetter = word[0];
            char last = '1';
@@ -22,7 +23,8 @@ namespace LibraryModels
             {
                 if (last != ' ')
                 {
-                    if ((word[i] < 'a' || word[i] > 'z') && word[i]!=' ')
+                    char x = word[i];
+                    if ((x < 'a' || x > 'z') && word[i]!=' ')
                         return false;
                 }
                 else

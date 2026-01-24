@@ -1,0 +1,87 @@
+﻿@using LibraryModels
+@model RegistrationViewModel
+@{
+    ViewData["Title"] = "ViewRegistrationForm";
+    Layout = "~/Views/Shared/MasterPage.cshtml";
+}
+<script>
+    function getFileName()
+    { 
+        let imgName = document.getElementById("readerFile").value;
+        let imgNameSend = document.getElementById("readerImg");
+        imgNameSend.value = imgName;
+    }
+</script>
+<link href="~/styles/registrationform.css" rel="stylesheet" />
+@if(ViewBag.Error!=null)
+{
+    <h1 class="errorMessage">
+        There Was Server error. Try later!
+    </h1>
+}
+<form asp-controller="guest"
+      asp-action="Registration"
+      class="RegistrationForm"
+      method="post">
+    <ul class="fieds">
+        <li class="field">
+            <label class="inputLable">Reader Id</label>
+            <input asp-for="Reader.ReaderId"
+                   class="inputData"
+                   type="text" value="123456789"/>
+            <span asp-validation-for="Reader.ReaderId" class="errorData"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader First Name</label>
+            <input asp-for="Reader.ReaderFirstName" class="inputData" type="text" value="Affffff" />
+            <span asp-validation-for="Reader.ReaderFirstName" class="errorData" id="ReaderFirstNameError"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader Last Name</label>
+            <input asp-for="Reader.ReaderLastName" 
+            class="inputData" type="text" value="Bgrggrg" />
+            <span asp-validation-for="Reader.ReaderLastName" class="errorData" value="B23456789"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader address</label>
+            <input asp-for="Reader.ReaderAdress"
+            class="inputData" type="text" value="aaa aaaa" />
+            <span asp-validation-for="Reader.ReaderAdress" class="errorData"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader Telephone</label>
+            <input asp-for="Reader.ReaderTelephone" class="inputData" type="text" value="0542509698" />
+            <span asp-validation-for="Reader.ReaderTelephone" class="errorData" id="ReaderTelephoneError"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader City</label>
+            <select asp-for="Reader.CityId" class="inputData" type="text" >
+                <option value="0" selected>Select city</option>
+                @foreach(City city in Model.Cities)
+                {
+                    <option  value="@city.CityId">@city.CityName</option>
+                }
+                
+            </select>
+            <span asp-validation-for="Reader.CityId" class="errorData" id="CityIdError"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader Password</label>
+            <input asp-for="Reader.ReaderPassword" class="inputData" type="text" value="123456789" />
+            <span asp-validation-for="Reader.ReaderPassword" class="errorData" id="ReaderPasswordError"></span>
+        </li>
+        <li class="field">
+            <label class="inputLable">Reader Photo</label>
+            <input  class="inputData" type="file"
+                   id="readerFile" onchange="getFileName()" />
+            <input type="hidden" name="ReaderImage" id="readerImg"/>
+        </li>
+        <li class="field">
+            <label class="inputLable"></label>
+            <button class="sendForm" type="submit">Send Data</button>
+            <button class="sendForm" type="reset">Reset Data</button>
+            <span class="errorData" id="FormError"></span>
+        </li>
+    </ul>
+</form>
+

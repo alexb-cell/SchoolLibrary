@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using LibraryModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using System.Reflection.PortableExecutable;
+using System.Text.Json;
 
 namespace SchoolLibraryWS.Controllers
 {
@@ -95,15 +96,33 @@ namespace SchoolLibraryWS.Controllers
         }
 
         [HttpPost]   
-        public bool RegisterReader([FromBody] Reader reader)
+        public bool RegisterReader()
         {
+            
+            string json = HttpContext.Request.Form["model"];
+            Reader reader = JsonSerializer.Deserialize<Reader>(json);
+            IFormFile file = null;
+            if(HttpContext.Request.Form.Files.Count >0)
+            {
+                file = HttpContext.Request.Form.Files[0];
+            }
             try
             {
+                repositoryUOW.DbHelperOledb.OpenTransaction();
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
-                return this.repositoryUOW.ReaderRepository.Create(reader);
+                bool ok= this.repositoryUOW.ReaderRepository.Create(reader);
+                string path = $@"{Directory.GetCurrentDirectory()}\wwwroot\Images\Readers\{reader.ReaderId}.{reader.ReaderImage}";
+                using (FileStream fileStream = new FileStream(path,FileMode.Open))
+                {
+                    fileStream.CopyTo(fileStream);
+                }
+                this.repositoryUOW.DbHelperOledb.Commit();
+                return true;
+
             }
             catch (Exception ex)
             {
+                this.repositoryUOW.DbHelperOledb.RollBack();
                 return false;
             }
             finally

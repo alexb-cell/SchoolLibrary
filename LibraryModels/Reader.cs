@@ -45,6 +45,7 @@ namespace LibraryModels
             get { return readerLastName; }
             set { readerLastName = value; }
         }
+
         [Required(ErrorMessage = "You must enter Reader Adress")]
         public string ReaderAdress
         {

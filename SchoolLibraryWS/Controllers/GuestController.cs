@@ -19,7 +19,7 @@ namespace SchoolLibraryWS.Controllers
         }
 
         [HttpGet]
-        public CatalogViewModel GetBookCatalog(string authorId = null, string ganreId = null, int page = 0)
+        public CatalogViewModel GetBookCatalog(string authorId = null, string ganreId = null, int page = 1)
         {
             CatalogViewModel catalogViewModel = new CatalogViewModel();
             catalogViewModel.GanreId = ganreId;
@@ -28,39 +28,38 @@ namespace SchoolLibraryWS.Controllers
             catalogViewModel.PagePerPage = 10;
             try
             {
+                int booksperPage = 10;
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
                 catalogViewModel.Ganres = this.repositoryUOW.GanreRepository.GetAll();
                 catalogViewModel.Authors = this.repositoryUOW.AuthoRepository.GetAll();
-                if (authorId == null && ganreId == null && page == 0)
+                if (authorId == null && ganreId == null && page >= 1)
                 {
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetAll();
+                    catalogViewModel.Books  = this.repositoryUOW.BookRepository.GetAll(); 
                 }
-                else if (authorId != null && ganreId == null && page == 0)
+
+                else if (authorId != null && ganreId == null && page == 1)
                 {
                     catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
-                }
-                else if (authorId == null && ganreId != null && page == 0)
-                {
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
-                }
-                else if (authorId == null && ganreId == null && page != 0)
-                {
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksByPage(page);
-                }
-                else if (authorId != null && ganreId == null && page != 0)
-                {
-                    int booksperPage = 10;
-                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
-                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
+                   
 
                 }
-                else if (authorId == null && ganreId != null && page != 0)
+                else if (authorId == null && ganreId != null && page >= 1)
                 {
-                    int booksperPage = 10;
                     catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
-                    catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
+
                 }
-                int books = this.repositoryUOW.BookRepository.GetBookCount();
+               
+                else if (authorId != null && ganreId == null && page != 1)
+                {
+                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyAuthor(authorId);
+                }
+                else if (authorId == null && ganreId != null && page != 1)
+                {
+                    catalogViewModel.Books = this.repositoryUOW.BookRepository.GetBooksbyGanre(ganreId);
+                }
+                int books = catalogViewModel.Books.Count;
+                if (books > booksperPage) 
+                    catalogViewModel.Books=catalogViewModel.Books.Skip(catalogViewModel.PagePerPage * (page - 1)).Take(catalogViewModel.PagePerPage).ToList();
                 catalogViewModel.PageCount = books/ catalogViewModel.PagePerPage;
                 if (books % catalogViewModel.PagePerPage > 0)
                     catalogViewModel.PageCount++;

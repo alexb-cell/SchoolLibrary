@@ -1,4 +1,4 @@
-﻿
+﻿@using LibraryModels
 @{
     ViewData["Title"] = "MasterPage";
 }
@@ -27,7 +27,35 @@
                     </div>
                 </section>
 
-
+                @if(Model != null && Model.GetType() == typeof(CatalogViewModel))
+                {
+                    <section class="authorFilter">
+                        <p class="filterText">Author filter</p>
+                        <div class="navMenu">
+                            @foreach(Author author in Model.Authors )
+                            {
+                                string authorLink = "http://localhost:5160/guest/ViewBookCatalog/?authorId=" + author.AuthorId;
+                                <span class="menuItem">
+                                    <a class="link" href=@authorLink>@author.AuthorFirstName @author.AuthorLastName</a>
+                                </span>
+                            }
+                           
+                           
+                        </div>
+                    </section>
+                    <section class="ganreFilter">
+                        <p class="filterText">Ganre filter</p>
+                        <div class="navMenu">
+                            @foreach (Ganre ganre  in Model.Ganres)
+                            {
+                                string ganreLink = "http://localhost:5160/guest/ViewBookCatalog/?ganreId=" + ganre.GanreId;
+                                <span class="menuItem">
+                                    <a class="link" href=@ganreLink>@ganre.GanreName</a>
+                                </span>
+                            }
+                        </div>
+                    </section>
+                }
             </header>
             <footer class="footer">
             </footer>

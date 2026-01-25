@@ -25,7 +25,7 @@ namespace LibraryWebApp.Controllers
             client.Host = "localhost";
             client.Port = 5273;
             client.Path = "api/Guest/GetBookCatalog";
-            if (page != 0)
+            if (page != 1)
                 client.AddParameter("page", page.ToString());
             if (authorId != null)
                 client.AddParameter("authorId", authorId);

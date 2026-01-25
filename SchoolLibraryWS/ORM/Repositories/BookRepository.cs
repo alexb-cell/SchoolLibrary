@@ -63,9 +63,17 @@ namespace SchoolLibraryWS
 
         public List<Book> GetBooksbyGanre(string ganreId)
         {
-            string sql = @"SELECT Books.BookId, Books.BookName, Books.BookDescription, Books.BookImage, Books.BookCopies, BooksGenres.GenreId
-                          FROM Books INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
-                          WHERE BooksGenres.GenreId=@GanreId;";
+            string sql = @"SELECT
+                                Books.BookId,
+                                Books.BookName,
+                                Books.BookDescription,
+                                Books.BookImage,
+                                Books.BookCopies,
+                                BooksGenres.TypeBookId
+                            FROM Books
+                                INNER JOIN BooksGenres ON Books.BookId = BooksGenres.BookId
+                            WHERE
+                                BooksGenres.TypeBookId=@GanreId";
             this.helperOledb.AddParameter("@GanreId", ganreId);
             return GetBookList(sql);
         }

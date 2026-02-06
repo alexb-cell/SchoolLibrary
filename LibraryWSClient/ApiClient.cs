@@ -144,5 +144,33 @@ namespace LibraryWSClient
 
             }
         }
+
+
+
+        public async Task<TRequest> PostReturnValueAsync<TRequest, TResponse>(TResponse model) 
+        {
+            using (HttpRequestMessage httpRequest = new HttpRequestMessage())
+            {
+                httpRequest.Method = HttpMethod.Post;
+                httpRequest.RequestUri = this.uriBuilder.Uri;
+                string json = JsonSerializer.Serialize<TResponse>(model);
+                StringContent content = new StringContent(json);
+                httpRequest.Content = content;
+                using (HttpResponseMessage responseMessage =
+                      await this.httpClient.SendAsync(httpRequest))
+                {
+                    bool ok= responseMessage.IsSuccessStatusCode;
+                    if(ok==true)
+                    {
+                        string result = await responseMessage.Content.ReadAsStringAsync();
+                        JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
+                        jsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                        TRequest value = JsonSerializer.Deserialize<TRequest>(result, jsonSerializerOptions);
+                    }
+                    return default(TRequest);
+                }
+
+            }
+        }
     }
 }

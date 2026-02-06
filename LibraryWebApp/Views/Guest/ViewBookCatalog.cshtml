@@ -25,10 +25,22 @@
 <div class="paging">
     @for (int i = 1; i <= Model.PageCount; i++)
     {
+        string pagelink = "http://localhost:5160/guest/ViewBookCatalog/?page=" + i;
+        if( Model.AuthorId != null)
+        {
+            pagelink += "&authorId=" + Model.AuthorId;
+        }
+        if (Model.GanreId != null)
+        {
+            pagelink += "&ganreId=" + Model.GanreId;
+        }
         <p class="pagenumber">
-            <a href="http://localhost:5160/guest/ViewBookCatalog/?page=@i">@i</a>
+            <a href="@pagelink">@i</a>
         </p>
-    }
+    }  
+            
+       
+    
     
 </div>
 

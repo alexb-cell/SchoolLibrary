@@ -3,7 +3,7 @@
         $(".menuItem").click(
             function () {
                 $.ajax({
-                    url: "http://server/Controller/MethodName/?id=42",
+                    url: "http://server:port/Controller/MethodName/?id=42",
                     method: "GET",
                     dataType: "html",
                     beforeSend: function () {

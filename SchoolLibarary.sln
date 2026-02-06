@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Testing", "Testing\Testing.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolLibraryWS", "SchoolLibraryWS\SchoolLibraryWS.csproj", "{ABB9D3D8-A29E-47DA-85C6-423B1D60E85B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryWSClient", "LibraryWSClient\LibraryWSClient.csproj", "{D1EEC4DE-2FB7-4763-8247-148008BE130A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryWSClient", "LibraryWSClient\LibraryWSClient.csproj", "{D1EEC4DE-2FB7-4763-8247-148008BE130A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{A7884549-74BF-439B-A66E-ECD40605D5DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryWebApp", "LibraryWebApp\LibraryWebApp.csproj", "{A7884549-74BF-439B-A66E-ECD40605D5DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminApp", "AdminApp\AdminApp.csproj", "{FA87B799-5615-44C6-ADC6-7312E6AD03D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A7884549-74BF-439B-A66E-ECD40605D5DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7884549-74BF-439B-A66E-ECD40605D5DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7884549-74BF-439B-A66E-ECD40605D5DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA87B799-5615-44C6-ADC6-7312E6AD03D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA87B799-5615-44C6-ADC6-7312E6AD03D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA87B799-5615-44C6-ADC6-7312E6AD03D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA87B799-5615-44C6-ADC6-7312E6AD03D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

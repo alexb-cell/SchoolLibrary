@@ -61,8 +61,22 @@ namespace LibraryWebApp.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateReader(Reader reader)
+        {
+            if(ModelState.IsValid == false)
+            {
 
-        
+            }
+            ApiClient<Reader> client = new ApiClient<Reader>();
+            client.Scheme = "http";
+            client.Host = "localhost";
+            client.Port = 5273;
+            client.Path = "api/Guest/UpdateReader";
+            bool ok = await client.PostAsync(reader);
+            return View();
+        }
+
 
     }
 }

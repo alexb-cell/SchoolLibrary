@@ -11,12 +11,16 @@
   <ItemGroup>
     <None Remove="Font\SpecialElite.ttf" />
     <None Remove="Images\author.png" />
+    <None Remove="Images\bookplace.png" />
     <None Remove="Images\books.png" />
     <None Remove="Images\borrow.png" />
+    <None Remove="Images\deleteicon.png" />
+    <None Remove="Images\editicon.png" />
     <None Remove="Images\exit.png" />
     <None Remove="Images\ganres.png" />
     <None Remove="Images\ganres2.png" />
     <None Remove="Images\home.png" />
+    <None Remove="Images\infoicon.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logout.png" />
     <None Remove="Images\logout2.png" />
@@ -25,10 +29,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\bookplace.png" />
+    <Resource Include="Images\deleteicon.png" />
+    <Resource Include="Images\editicon.png" />
     <Resource Include="Images\home.png">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Resource>
+    <Resource Include="Images\infoicon.png" />
   </ItemGroup>
 
   <ItemGroup>

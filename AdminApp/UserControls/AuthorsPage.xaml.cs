@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AdminApp
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for AuthorsPage.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class AuthorsPage : UserControl
     {
-        public LoginPage()
+        public AuthorsPage()
         {
             InitializeComponent();
         }

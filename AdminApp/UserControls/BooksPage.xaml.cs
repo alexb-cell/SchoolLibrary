@@ -13,16 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace AdminApp
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for BooksPage.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class BooksPage : UserControl
     {
-        public LoginPage()
+       
+        public BooksPage()
         {
             InitializeComponent();
+           
         }
+
+        
     }
+
+
 }

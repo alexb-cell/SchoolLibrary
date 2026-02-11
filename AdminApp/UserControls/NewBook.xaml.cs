@@ -10,19 +10,23 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace AdminApp
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for NewBook.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class NewBook : Window
     {
-        public LoginPage()
+        public NewBook()
         {
             InitializeComponent();
+        }
+
+        private void button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

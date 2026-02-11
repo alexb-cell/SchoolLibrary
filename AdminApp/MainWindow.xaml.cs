@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using AdminApp.UserControls;
+using AdminApp;
 
 namespace AdminApp
 {
@@ -19,6 +20,7 @@ namespace AdminApp
     {
         SartPage startPage;
         LoginPage loginPage;
+        BooksPage booksPage;    
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +35,12 @@ namespace AdminApp
         }
         private void ViewLoginPage()
         {
+            if (this.booksPage == null)
+                this.booksPage = new BooksPage();
+            this.frameMain.Content = this.booksPage;
+        }
+        private void ViewBookPage()
+        {
             if (this.loginPage == null)
                 this.loginPage = new LoginPage();
             this.frameMain.Content = this.loginPage;
@@ -46,6 +54,11 @@ namespace AdminApp
         private void hyperlinkStartPage_Click(object sender, RoutedEventArgs e)
         {
             ViewStartPage();
+        }
+
+        private void hyperlinkBooks_Click(object sender, RoutedEventArgs e)
+        {
+            ViewLoginPage();
         }
     }
 }

@@ -12,7 +12,7 @@
                Canvas.Left="49"
                Canvas.Top="56"
                Width="652"
-               Source="/Images/home.png"/>
+               Source="/Images/startpage.png"/>
 
     </Canvas>
 </UserControl>

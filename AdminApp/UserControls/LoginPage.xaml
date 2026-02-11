@@ -1,26 +1,17 @@
-﻿<UserControl x:Class="AdminApp.UserControls.LoginPage"
+﻿<UserControl x:Class="AdminApp.LoginPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:AdminApp.UserControls"
+             xmlns:local="clr-namespace:AdminApp"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="750">
+             d:DesignHeight="450" d:DesignWidth="600">
     <Canvas>
-        <Label x:Name="label" 
-               Content="Login Page"
-               Margin="258,64,236,446"
-               FontSize="48" Foreground="Black"
-               />
-        <Label x:Name="label1" Content="UserNick" 
-               FontSize="20" Margin="179,214,473,351"/>
-        <TextBox x:Name="textBox" Margin="308,208,163,342" TextWrapping="Wrap" Text="TextBox" d:LayoutOverrides="HorizontalAlignment"/>
-        <Label x:Name="label1_Copy" Content="Passwod" 
-            FontSize="20" Margin="179,314,473,251"/>
-        <TextBox x:Name="textBox_Copy" Margin="308,308,163,242" TextWrapping="Wrap" Text="TextBox" d:LayoutOverrides="HorizontalAlignment"/>
-        <Button x:Name="button" Content="Button" Margin="288,428,244,104" d:LayoutOverrides="HorizontalAlignment"/>
-        <CheckBox x:Name="checkBox" Content="CheckBox" Canvas.Left="612" Canvas.Top="273"/>
-        <RadioButton x:Name="radioButton" Content="RadioButton" Canvas.Left="615" Canvas.Top="309"/>
-
+        <TextBox x:Name="textBoxNickName" Canvas.Left="304" TextWrapping="Wrap" Text="TextBox" Canvas.Top="153" Width="120"/>
+        <Label x:Name="label" Content="User Nick" Canvas.Left="236" Canvas.Top="150" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxPassword" Canvas.Left="304" TextWrapping="Wrap" Text="TextBox" Canvas.Top="198" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label x:Name="label_Copy" Content="User Password" Canvas.Left="201" Canvas.Top="197" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="buttonLoin" Content="Login" Canvas.Left="294" Canvas.Top="252" HorizontalAlignment="Left" VerticalAlignment="Top" Width="78"/>
+        <Label x:Name="label1" Content="Login form" Canvas.Left="266" Canvas.Top="69" HorizontalAlignment="Left" VerticalAlignment="Center" Width="152"/>
     </Canvas>
 </UserControl>

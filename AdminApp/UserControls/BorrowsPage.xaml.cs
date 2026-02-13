@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AdminApp
+namespace AdminApp.UserControls
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for BorrowsPage.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class BorrowsPage : UserControl
     {
-        public LoginPage()
+        public BorrowsPage()
         {
             InitializeComponent();
-        }
-
-        private void textBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

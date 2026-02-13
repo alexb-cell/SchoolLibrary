@@ -1,6 +1,7 @@
 ﻿using LibraryModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace SchoolLibraryWS.Controllers
 {
@@ -99,6 +100,24 @@ namespace SchoolLibraryWS.Controllers
             {
                 this.repositoryUOW.DbHelperOledb.RollBack();
                 return false;
+            }
+            finally
+            {
+                this.repositoryUOW.DbHelperOledb.CloseConnection();
+            }
+        }
+
+        [HttpGet]
+        public List<Book> GetBooks()
+        {
+            try
+            {
+                this.repositoryUOW.DbHelperOledb.OpenConnection();
+                return this.repositoryUOW.BookRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
             finally
             {

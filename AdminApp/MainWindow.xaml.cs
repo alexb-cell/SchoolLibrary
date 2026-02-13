@@ -20,7 +20,11 @@ namespace AdminApp
     {
         SartPage startPage;
         LoginPage loginPage;
-        BooksPage booksPage;    
+        BooksPage booksPage;
+        AuthorsPage authorsPage;
+        GenresPage genresPage;
+        ReaderPage readerPage;
+        BorrowsPage borrowsPage;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,9 +45,37 @@ namespace AdminApp
         }
         private void ViewBookPage()
         {
-            if (this.loginPage == null)
-                this.loginPage = new LoginPage();
-            this.frameMain.Content = this.loginPage;
+            if (this.booksPage == null)
+                this.booksPage = new BooksPage();
+            this.frameMain.Content = this.booksPage;
+        }
+
+        private void ViewAuthorsPage()
+        {
+            if (this.authorsPage == null)
+                this.authorsPage = new AuthorsPage();
+            this.frameMain.Content = this.authorsPage;
+        }
+
+        private void ViewGenresPage()
+        {
+            if (this.genresPage == null)
+                this.genresPage = new GenresPage();
+            this.frameMain.Content = this.genresPage;
+        }
+
+        private void ViewReaderssPage()
+        {
+            if (this.readerPage == null)
+                this.readerPage = new ReaderPage();
+            this.frameMain.Content = this.readerPage;
+        }
+
+        private void ViewBorrowsPage()
+        {
+            if (this.borrowsPage == null)
+                this.borrowsPage = new BorrowsPage();
+            this.frameMain.Content = this.borrowsPage;
         }
 
         private void hyperlinkLogin_Click(object sender, RoutedEventArgs e)
@@ -58,7 +90,32 @@ namespace AdminApp
 
         private void hyperlinkBooks_Click(object sender, RoutedEventArgs e)
         {
-            ViewLoginPage();
+            ViewBookPage();
+        }
+
+        private void hyperlinkAuthors_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAuthorsPage();
+        }
+
+        private void hyperLinkGanres_Click(object sender, RoutedEventArgs e)
+        {
+            ViewGenresPage();
+        }
+
+        private void hyperlinkReaders_Click(object sender, RoutedEventArgs e)
+        {
+            ViewReaderssPage();
+        }
+
+        private void hyperlinkBorrows_Click(object sender, RoutedEventArgs e)
+        {
+            ViewBorrowsPage();
+        }
+
+        private void hyperlinkExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
     }
 }

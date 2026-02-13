@@ -10,24 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AdminApp
+namespace AdminApp.AppWindows
 {
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for NewBook.xaml
     /// </summary>
-    public partial class LoginPage : UserControl
+    public partial class NewBook : Window
     {
-        public LoginPage()
+        public NewBook()
         {
             InitializeComponent();
-        }
-
-        private void textBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

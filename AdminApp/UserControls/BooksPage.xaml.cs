@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ModelLibrary;
+using LibraryModels;
+using LibraryWSClient;
 
 
 namespace AdminApp
@@ -21,11 +24,26 @@ namespace AdminApp
     /// </summary>
     public partial class BooksPage : UserControl
     {
-       
+
+        List<Book> books;
         public BooksPage()
         {
             InitializeComponent();
-           
+            GetBookList();
+
+
+        }
+
+        private async Task GetBookList()
+        {
+            ApiClient<List<Book>> apiClient = new ApiClient<List<Book>>();
+            apiClient.Scheme = "http";
+            apiClient.Host = "localhost";
+            apiClient.Port = 5273;
+            apiClient.Path = "api/Admin/GetBooks";
+            this.books = await apiClient.GetAsync();
+            listViewBooks.ItemsSource = this.books;
+            this.DataContext = this.books;
         }
 
         

@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AdminApp"
-             xmlns:con="clr-namespace:AdminApp"
+             xmlns:conv="clr-namespace:AdminApp"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <FontFamily x:Key="SpecialElite">/Fonts/#Special Elite</FontFamily>
         <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
@@ -18,57 +18,84 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+        <local:UrlConverter x:Key="urlConverter"></local:UrlConverter>
     </UserControl.Resources>
     <Canvas>
-        <Border BorderBrush="Black"
-               
-               BorderThickness="1" 
-               Height="83" 
-               Canvas.Left="23" 
-               Canvas.Top="21"
-               Width="675">
-            <Canvas Width="675"
-               Margin="0,0,0,23">
-                <Image Source="/Images/bookplace.png"
+        <ListView x:Name="listViewBooks"
+                  Height="450" 
+                  Width="765"
+                  Canvas.Top="14" 
+                  Canvas.Left="22" HorizontalAlignment="Center" VerticalAlignment="Top" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black"
+            BorderThickness="1" 
+            Height="83" 
+            Canvas.Left="23" 
+            Canvas.Top="21"
+            Width="675">
+                        <Canvas Width="675"
+        Margin="0,0,0,23">
+                            <Image Source="{Binding BookImage,
+                Converter={StaticResource urlConverter}}"
                 x:Name="imageBook"
-                      Width="50"
-                      Height="68"
-                      Canvas.Left="10"
-                      Canvas.Top="5"/>
-
-                <Button x:Name="btnInfo"
-                        Height="32" 
-                        Canvas.Left="540" 
-                        Canvas.Top="25"
-                        Width="32"
-                        Style="{StaticResource ImageButtonStyle}">
-                    <Image Source="/Images/infoicon.png"/>
-                </Button>
-                <Button x:Name="btnEdit"
-                    Canvas.Left="585"
-                    Canvas.Top="25"
-                    Width="32"
-                    Style="{StaticResource ImageButtonStyle}" 
-                    HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image Source="/Images/editicon.png" />
-                </Button>
-                <Button x:Name="btnDelete"
-                         Canvas.Left="630"
-                         Canvas.Top="25"
-                         Width="32"
-                         Style="{StaticResource ImageButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Image Source="/Images/deleteicon.png" />
-                </Button>
-                <Label x:Name="labelBookTitele"
-                      Content=" Book Name"
-                      Canvas.Left="77"
-                      Canvas.Top="22"
-                      Width="450"
-                      FontSize="30" 
-                      FontFamily="{StaticResource SpecialElite}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            </Canvas>
-
-        </Border>
+                Width="50"
+                Height="68"
+                Canvas.Left="10"
+                Canvas.Top="5"/>
+                            <Button x:Name="btnInfo"
+                 Height="32" 
+                 Canvas.Left="540" 
+                 Canvas.Top="25"
+                 Width="32"
+                 Style="{StaticResource ImageButtonStyle}">
+                                <Image Source="/Images/infoicon.png"/>
+                            </Button>
+                            <Button x:Name="btnEdit"
+             Canvas.Left="585"
+             Canvas.Top="25"
+             Width="32"
+             Style="{StaticResource ImageButtonStyle}" 
+             HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Image Source="/Images/editicon.png" />
+                            </Button>
+                            <Button x:Name="btnDelete"
+                  Canvas.Left="630"
+                  Canvas.Top="25"
+                  Width="32"
+                  Style="{StaticResource ImageButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Image Source="/Images/deleteicon.png" />
+                            </Button>
+                            <Label x:Name="labelBookTitele"
+               Content="{Binding BookName}"
+               Canvas.Left="77"
+               Canvas.Top="22"
+               Width="430"
+               FontSize="30" 
+               FontFamily="{StaticResource SpecialElite}"/>
+                        </Canvas>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="buttonAddNewBook"
+          Canvas.Left="268" 
+          Canvas.Top="490" 
+          Width="254" 
+          Height="47"
+          FontSize="20"
+          FontFamily="{StaticResource SpecialElite}"
+          Foreground="White"
+          Background="Navy" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="32" Source="/Images/addnewbook.png"></Image>
+                    <Label Foreground="White"
+                     Padding="15,7,0,0"
+                     Content="Add new Book"
+                     FontSize="20"></Label>
+                </StackPanel>
+            </Button.Content>
+        </Button>
     </Canvas>
 </UserControl>

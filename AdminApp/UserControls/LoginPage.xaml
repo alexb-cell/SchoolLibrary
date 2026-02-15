@@ -26,7 +26,7 @@
                  Canvas.Top="153"
                  Width="262"
                  FontSize="20"
-                 Padding="20,7,7,7" HorizontalAlignment="Left" VerticalAlignment="Center" 
+                 Padding="20,7,7,7"  
                  
                  />
         <Label x:Name="label"
@@ -34,7 +34,7 @@
                Canvas.Left="32"
                Canvas.Top="159"
                FontSize="20"
-               FontFamily="{StaticResource SpecialElite}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+               FontFamily="{StaticResource SpecialElite}" />
         <TextBox x:Name="textBoxPassword"
                  Canvas.Left="220"
                  TextWrapping="Wrap"

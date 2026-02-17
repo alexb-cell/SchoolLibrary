@@ -23,13 +23,13 @@ namespace SchoolLibraryWS.Controllers
                 this.repositoryUOW.BeginTransaction();
                 bool ok = this.repositoryUOW.BookRepository.Create(newBookViewModel.Book);
                 string bookId = this.repositoryUOW.DbHelperOledb.GetLastInsertedId().ToString();
-                foreach (string authorid in newBookViewModel.Authors)
+                foreach (Author author in newBookViewModel.Authors)
                 {
-                    ok = ok && this.repositoryUOW.BookRepository.AddBookAuthor(bookId, authorid);
+                    ok = ok && this.repositoryUOW.BookRepository.AddBookAuthor(bookId, author.AuthorId);
                 }
-                foreach (string ganreId in newBookViewModel.Genres)
+                foreach (Ganre ganre in newBookViewModel.Genres)
                 {
-                    ok = ok && this.repositoryUOW.BookRepository.AdBookGanre(bookId, ganreId);
+                    ok = ok && this.repositoryUOW.BookRepository.AdBookGanre(bookId, ganre.GanreId);
                 }
                 this.repositoryUOW.DbHelperOledb.Commit();
                 return true;
@@ -125,5 +125,31 @@ namespace SchoolLibraryWS.Controllers
             }
         }
 
+
+        [HttpGet]
+        public NewBookViewModel GetNewBookViewModel()
+        {
+            NewBookViewModel newBookViewModel = new NewBookViewModel();
+            try
+            {
+                this.repositoryUOW.DbHelperOledb.OpenConnection();
+                newBookViewModel.Book = null;
+                newBookViewModel.Genres = this.repositoryUOW.GanreRepository.GetAll();
+                newBookViewModel.Authors = this.repositoryUOW.AuthoRepository.GetAll();
+                return newBookViewModel;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            finally
+            {
+                this.repositoryUOW.DbHelperOledb.CloseConnection();
+            }
+
+        }
+
     }
+
+
 }

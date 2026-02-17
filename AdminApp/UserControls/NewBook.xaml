@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AdminApp"
         mc:Ignorable="d"
-            Title="NewBook" Height="403" Width="615">
+            Title="NewBook" Height="433" Width="615">
     <Window.Resources>
         <FontFamily x:Key="SpecialElite">/Font/#Special Elite</FontFamily>
         <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
@@ -17,7 +17,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        <BooleanToVisibilityConverter x:Key="boolToVisibility"></BooleanToVisibilityConverter>
     </Window.Resources>
     <Canvas>
         <Label x:Name="label"
@@ -39,7 +39,11 @@
                Canvas.Top="28"/>
         <Border Canvas.Left="48" Canvas.Top="52"
                 BorderThickness="1" BorderBrush="Black">
-            <Image x:Name="imageBook" Height="153"  Width="145"/>
+            <Image x:Name="imageBook"
+                   Height="153"
+                   Width="145"
+                   Stretch="Fill"
+                   Source="/Images/bookplace.png"/>
         </Border>
         <Button x:Name="buttonSelectImage"
                 Canvas.Left="47" 
@@ -49,7 +53,8 @@
                     FontSize="20"
                     FontFamily="{StaticResource SpecialElite}"
                     Foreground="White"
-                    Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    Background="Navy" 
+                Click="buttonSelectImage_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/image.png"></Image>
@@ -73,8 +78,21 @@
                  Height="82"
                  Width="149" 
                  Canvas.Top="221"
-                 Canvas.Left="249" HorizontalAlignment="Left" VerticalAlignment="Center"
-                 />
+                 Canvas.Left="249" 
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock  FontFamily="{StaticResource SpecialElite}">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="AuthorFirstName" />
+                                <Binding Path="AuthorLastName" />
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Label  Content="Ganres"
                 Canvas.Left="413"
                 Canvas.Top="204" 
@@ -88,7 +106,13 @@
             Width="153"
             Canvas.Top="222" 
             Canvas.Left="415" HorizontalAlignment="Left" VerticalAlignment="Center"
-            />
+            >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding GanreName}" FontFamily="{StaticResource SpecialElite}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <Button x:Name="buttonAddBook"
                 Canvas.Left="250"
                 Canvas.Top="330"
@@ -108,11 +132,10 @@
                 </StackPanel>
             </Button.Content>
         </Button>
-
         <TextBox x:Name="textBoxBookName"
                  Canvas.Left="236" 
                  TextWrapping="Wrap" 
-                 Text="TextBox"
+                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
                  Canvas.Top="49"
                  Padding="7"
                  Width="332"
@@ -130,12 +153,12 @@
         <Button x:Name="buttonClose" 
                 Canvas.Left="416"
                 Canvas.Top="329"
-                                  Width="150" 
-                    Height="37"
-                    FontSize="20"
-                    FontFamily="{StaticResource SpecialElite}"
-                    Foreground="White"
-                    Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+                Width="150" 
+                Height="37"
+                FontSize="20"
+                FontFamily="{StaticResource SpecialElite}"
+                Foreground="White"
+                Background="Navy">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" 
@@ -150,28 +173,30 @@
         <TextBlock 
                    Canvas.Left="310" 
                    TextWrapping="Wrap"
-                   Text="" 
-                   Canvas.Top="31"
-                   Width="257"/>
+                   Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=textBoxBookName}"
+                   Canvas.Top="26"
+                   Visibility="{Binding (Validation.HasError),
+                                Converter={StaticResource boolToVisibility},
+                                ElementName=NameBox}"
+                   Width="257" 
+            />
         <TextBlock 
             Canvas.Left="334" 
             TextWrapping="Wrap"
             Text="" 
-            Canvas.Top="100"
-            Width="238" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            Canvas.Top="97"
+            Width="238" />
         <TextBlock 
             Canvas.Left="300" 
             TextWrapping="Wrap"
             Text="" 
             Canvas.Top="203"
-            Width="99" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            Width="99" />
         <TextBlock 
             Canvas.Left="460" 
             TextWrapping="Wrap"
             Text="" 
             Canvas.Top="203"
-            Width="107" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-
+            Width="107" />
     </Canvas>
 </Window>

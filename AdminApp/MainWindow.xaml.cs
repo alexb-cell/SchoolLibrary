@@ -39,9 +39,9 @@ namespace AdminApp
         }
         private void ViewLoginPage()
         {
-            if (this.booksPage == null)
-                this.booksPage = new BooksPage();
-            this.frameMain.Content = this.booksPage;
+            if (this.loginPage == null)
+                this.loginPage = new LoginPage();
+            this.frameMain.Content = this.loginPage;
         }
         private void ViewBookPage()
         {

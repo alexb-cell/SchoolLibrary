@@ -9,9 +9,7 @@ namespace LibraryModels
     public class NewBookViewModel
     {
         public Book Book { get; set; }
-        public List<string> Authors { get; set; }
-        public List<string> Genres { get; set; }
-
-
+        public List<Author> Authors { get; set; }
+        public List<Ganre> Genres { get; set; }
     }
 }

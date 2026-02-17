@@ -26,12 +26,22 @@ namespace AdminApp
     {
 
         List<Book> books;
+        NewBook newBook;    
         public BooksPage()
         {
             InitializeComponent();
             GetBookList();
 
 
+        }
+
+        private void ViewNewBookWindow()
+        {
+            if (this.newBook == null)
+                this.newBook = new NewBook();
+            this.newBook.Owner = Window.GetWindow(this);
+            bool? ok= this.newBook.ShowDialog();
+            this.newBook = null;
         }
 
         private async Task GetBookList()
@@ -46,7 +56,10 @@ namespace AdminApp
             this.DataContext = this.books;
         }
 
-        
+        private async void buttonAddNewBook_Click(object sender, RoutedEventArgs e)
+        {
+            ViewNewBookWindow();
+        }
     }
 
 

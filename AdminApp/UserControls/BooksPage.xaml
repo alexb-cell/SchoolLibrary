@@ -87,7 +87,7 @@
           FontFamily="{StaticResource SpecialElite}"
           Foreground="White"
           Background="Navy"
-                Click="buttonAddNewBook_Click">
+           Click="buttonAddNewBook_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/addnewbook.png"></Image>

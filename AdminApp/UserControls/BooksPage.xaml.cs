@@ -35,13 +35,13 @@ namespace AdminApp
 
         }
 
-        private void ViewNewBookWindow()
+        private bool? ViewNewBookWindow()
         {
             if (this.newBook == null)
                 this.newBook = new NewBook();
             this.newBook.Owner = Window.GetWindow(this);
-            bool? ok= this.newBook.ShowDialog();
-            this.newBook = null;
+            return this.newBook.ShowDialog();
+           
         }
 
         private async Task GetBookList()
@@ -58,7 +58,11 @@ namespace AdminApp
 
         private async void buttonAddNewBook_Click(object sender, RoutedEventArgs e)
         {
-            ViewNewBookWindow();
+          bool? ok= ViewNewBookWindow();
+            if(ok == true)
+            {
+               await  GetBookList();
+            }
         }
     }
 

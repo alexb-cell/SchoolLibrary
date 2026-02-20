@@ -81,7 +81,7 @@ namespace SchoolLibraryWS
             this.dbCommand.Parameters.Add(new OleDbParameter(name, value));
         }
 
-        internal string GetLastInsertedId()
+        public string GetLastInsertedId()
         {
             string sql = "SELECT @@IDENTITY";
             this.dbCommand.CommandText = sql;

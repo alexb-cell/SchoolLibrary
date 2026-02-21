@@ -107,6 +107,7 @@ namespace LibraryWSClient
                 multipartFormData.Add(modelContent, "model");
                 StreamContent streamContent = new StreamContent(file);
                 multipartFormData.Add(streamContent, "file", "file");
+                httpRequest.Content = multipartFormData;
                 using (HttpResponseMessage responseMessage =
                       await this.httpClient.SendAsync(httpRequest))
                 {

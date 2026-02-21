@@ -18,7 +18,7 @@ namespace SchoolLibraryWS.Controllers
             this.repositoryUOW = new RepositoryUOW();
         }
         [HttpPost]
-        public async bool AddNewBook()
+        public async Task<bool> AddNewBook()
         {
             string json = Request.Form["model"].ToString();
             NewBookViewModel newBookViewModel = 
@@ -40,7 +40,7 @@ namespace SchoolLibraryWS.Controllers
                     this.repositoryUOW.GanreRepository.Create(id, genre.GanreId);
                 }
                 string fileName = $"{id}{newBookViewModel.Book.BookImage}";
-                this.repositoryUOW.BookRepository.Update(id, fileName);
+                this.repositoryUOW.BookRepository.UpdateImageName(id, fileName);
                 string path = Path.Combine(Directory.GetCurrentDirectory(),
                                            "wwwroot", 
                                            "Images",

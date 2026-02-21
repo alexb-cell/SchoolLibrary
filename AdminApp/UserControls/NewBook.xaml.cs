@@ -36,7 +36,6 @@ namespace AdminApp
 
         private async Task GetNewbookViewModel()
         {
-            
             ApiClient<NewBookViewModel> apiClient = new ApiClient<NewBookViewModel>();
             apiClient.Scheme = "http";
             apiClient.Host = "localhost";
@@ -49,10 +48,6 @@ namespace AdminApp
             this.DataContext = this.newBookViewModel;
         }
 
-       
-
-
-       
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true; 
@@ -71,6 +66,7 @@ namespace AdminApp
                 Uri uri = new Uri(fileName);
                 BitmapImage bitmapImage = new BitmapImage(uri);
                 imageBook.Source = bitmapImage;
+                this.textBlockSelectImage.Visibility = Visibility.Hidden;
             }
         }
 
@@ -79,11 +75,12 @@ namespace AdminApp
             bool ok = false;
             NewBookViewModel newBook = new NewBookViewModel();
             newBook.Book = new Book();
+            newBook.Book.BookId = "0";
             newBook.Book.BookName = textBoxBookName.Text;
             newBook.Book.BookDescription = textBoxBookDescription.Text;
             newBook.Book.BookImage = System.IO.Path.GetExtension(this.imagePath);
-            newBook.Genres = listBoxAuthors.SelectedItems as List<Ganre>;
-            newBook.Authors = listBoxAuthors.SelectedItems as List<Author>;
+            newBook.Genres = listBoxGenres.SelectedItems.Cast<Ganre>().ToList<Ganre>();
+            newBook.Authors = listBoxAuthors.SelectedItems.Cast<Author>().ToList<Author>();
             newBook.Book.Validate();
             if( newBook.Book.HasErrors == false)
             {
@@ -103,8 +100,6 @@ namespace AdminApp
                 this.DialogResult = true;
                 this.Close();
             }
-            
-          
         }
     }
 }

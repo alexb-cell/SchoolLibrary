@@ -53,6 +53,7 @@ namespace SchoolLibraryWS
         public void OpenTransaction()
         {
             this.dbTransaction = this.oleDbConnection.BeginTransaction();
+            this.dbCommand.Transaction =this.dbTransaction; 
         }
 
         public void RollBack()

@@ -41,6 +41,34 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@AuthorPicture", model.AuthorPicture);
             return this.helperOledb.Insert(sql)>0;
         }
+
+
+
+        public bool Create(string bookId, string authorId)
+        {
+            //string sql = @$"Insert into Authors
+            //                (
+            //                  AuthorFirstName, AuthorLastName,
+            //                  AuthorYear,CountryId,AuthorPicture
+            //                )
+            //                values
+            //                (
+            //                     '{model.AuthorFirstName}','{model.AuthorLastName}',
+            //                     {model.AuthorYear}, {model.CountryId},'{model.AuthorPicture}'
+            //                )";
+            string sql = @$"Insert into BooksAuthors
+                            (
+                              BookId, AuthorId
+                            )
+                            values
+                            (
+                                 @BookId,@AuthorId
+                            )";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@AuthorId", authorId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
+
         public bool Delete(string id)
         {
             string sql = @"Delete from Authors where authorId=@authorId";

@@ -18,8 +18,9 @@
             </Setter>
         </Style>
         <BooleanToVisibilityConverter x:Key="boolToVisibility">
-            
+
         </BooleanToVisibilityConverter>
+        <local:IndexToVisibilityConverter x:Key="indexToVisibilityConverter"></local:IndexToVisibilityConverter>
     </Window.Resources>
     <Canvas>
         <Label x:Name="label"
@@ -80,8 +81,7 @@
                  Height="82"
                  Width="155" 
                  Canvas.Top="221"
-                 Canvas.Left="243" HorizontalAlignment="Left" VerticalAlignment="Center" 
-                 >
+                 Canvas.Left="243">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock  FontFamily="{StaticResource SpecialElite}">
@@ -110,7 +110,7 @@
                   Canvas.Left="415" HorizontalAlignment="Left" VerticalAlignment="Center"
                   DisplayMemberPath="GanreName"
                   SelectedValuePath="GanreId">
-          
+
         </ListBox>
         <Button x:Name="buttonAddBook"
                 Canvas.Left="250"
@@ -170,35 +170,49 @@
                 </StackPanel>
             </Button.Content>
         </Button>
+        <TextBlock x:Name="textBlockSelectImage"
+            Canvas.Left="118" 
+            TextWrapping="Wrap"
+            Text="Select  Image" 
+            Canvas.Top="30"
+            Width="79"
+            Foreground="Red"
+            Visibility="Visible"/>
         <TextBlock 
                    Canvas.Left="310" 
                    Foreground="Red"
-                   
                    Text="{Binding (Validation.Errors)[0].ErrorContent, 
                                    ElementName=textBoxBookName}"
                    Canvas.Top="26"
                    Visibility="{Binding (Validation.HasError),
                                 Converter={StaticResource boolToVisibility},
                                 ElementName=textBoxBookName}"
-                   Width="257" 
-            />
+                   Width="257"/>
         <TextBlock 
             Canvas.Left="334" 
             TextWrapping="Wrap"
-            Text="" 
+            Text="{Binding (Validation.Errors)[0].ErrorContent, 
+                                   ElementName=textBoxBookDescription}" 
+            Visibility="{Binding (Validation.HasError),
+            Converter={StaticResource boolToVisibility},
+            ElementName=textBoxBookDescription}"
             Canvas.Top="97"
             Width="238" />
         <TextBlock 
             Canvas.Left="300" 
             TextWrapping="Wrap"
-            Text="" 
+            Text="No selected Author" 
+            Foreground="Red"
+            Visibility="{Binding ElementName=listBoxAuthors,Path=SelectedIndex, Converter={StaticResource indexToVisibilityConverter }}"
             Canvas.Top="203"
-            Width="99" />
+            Width="105" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <TextBlock 
-            Canvas.Left="460" 
+            Canvas.Left="468" 
             TextWrapping="Wrap"
-            Text="" 
+            Text="No selected Genre" 
             Canvas.Top="203"
-            Width="107" />
+            Width="107"
+            Foreground="Red"
+            Visibility="{Binding ElementName=listBoxGenres, Path=SelectedIndex,Converter={StaticResource indexToVisibilityConverter}}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
     </Canvas>
 </Window>

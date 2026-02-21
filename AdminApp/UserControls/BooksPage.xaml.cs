@@ -40,8 +40,11 @@ namespace AdminApp
             if (this.newBook == null)
                 this.newBook = new NewBook();
             this.newBook.Owner = Window.GetWindow(this);
-            return this.newBook.ShowDialog();
-           
+            bool? ok= this.newBook.ShowDialog();
+            this.newBook = null;
+            return ok;
+
+
         }
 
         private async Task GetBookList()

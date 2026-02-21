@@ -20,7 +20,7 @@ namespace SchoolLibraryWS
                             (
                               BookName, 
                               BookDescription, 
-                              BookImage,
+                              BookImage
                             )
                            VALUES
                            (
@@ -102,7 +102,7 @@ namespace SchoolLibraryWS
 
         public bool Update(Book item)
         {
-            string sql = $@"Update set Books
+            string sql = $@"Update  Books set
                               BookName=@BookName, 
                               BookDescription=@BookName, 
                               BookImage=@BookName,
@@ -113,6 +113,16 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@BookImage", item.BookImage);
             this.helperOledb.AddParameter("@BookId", item.BookId);
             return this.helperOledb.Insert(sql) > 0;
+        }
+
+        public bool UpdateImageName(string bookId, string fileName)
+        {
+            string sql = $@"Update Books set
+                              BookImage=@BookImage 
+                              where BookId=@BookId";
+            this.helperOledb.AddParameter("@BookImage", fileName);
+            this.helperOledb.AddParameter("@BookId", bookId);
+            return this.helperOledb.Update(sql) > 0;
         }
 
         public List<Book> GetBooksByGanre(string ganreId)

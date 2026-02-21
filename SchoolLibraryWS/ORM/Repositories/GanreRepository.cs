@@ -18,6 +18,14 @@ namespace SchoolLibraryWS
             this.helperOledb.AddParameter("@GanreName", item.GanreName);
             return this.helperOledb.Insert(sql) > 0;
         }
+        public bool Create(string bookId, string ganreId)
+        {
+            string sql = $@"INSERT INTO BooksGenres
+                            (BookId,TypeBookId) VALUES (@BookId, @TypeBookId)";
+            this.helperOledb.AddParameter("@BookId", bookId);
+            this.helperOledb.AddParameter("@TypeBookId", ganreId);
+            return this.helperOledb.Insert(sql) > 0;
+        }
 
         public bool Delete(string id)
         {

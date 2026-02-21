@@ -30,7 +30,7 @@ namespace LibraryModels
         }
         [Required(ErrorMessage = "Book Name cannot be empty")]
         [StringLength(150, MinimumLength = 2, ErrorMessage = "A book name cannot be less than two characters or more than 150 characters.")]
-       // [FirstLetterCapital(ErrorMessage = "The first letter of the name must be a capital letter and the rest must be lowercase.")]    
+        //[FirstLetterCapital(ErrorMessage = "The first letter of the name must be a capital letter and the rest must be lowercase.")]    
         public string BookName
         {
                            get { return this.bookName; }

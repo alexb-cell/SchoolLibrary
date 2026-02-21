@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace SchoolLibraryWS.Controllers
 {
@@ -15,28 +18,45 @@ namespace SchoolLibraryWS.Controllers
             this.repositoryUOW = new RepositoryUOW();
         }
         [HttpPost]
-        public bool AddNewBook(NewBookViewModel newBookViewModel)
+        public async bool AddNewBook()
         {
+            string json = Request.Form["model"].ToString();
+            NewBookViewModel newBookViewModel = 
+                            JsonSerializer.Deserialize<NewBookViewModel>(json);
+            IFormFile image = Request.Form.Files["file"];
             try
             {
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
                 this.repositoryUOW.BeginTransaction();
                 bool ok = this.repositoryUOW.BookRepository.Create(newBookViewModel.Book);
-                string bookId = this.repositoryUOW.DbHelperOledb.GetLastInsertedId().ToString();
+                string id = this.repositoryUOW.GetLastInsertedId();
+
                 foreach (Author author in newBookViewModel.Authors)
                 {
-                    ok = ok && this.repositoryUOW.BookRepository.AddBookAuthor(bookId, author.AuthorId);
+                    this.repositoryUOW.AuthoRepository.Create(id, author.AuthorId);
                 }
-                foreach (Ganre ganre in newBookViewModel.Genres)
+                foreach (Ganre genre in newBookViewModel.Genres)
                 {
-                    ok = ok && this.repositoryUOW.BookRepository.AdBookGanre(bookId, ganre.GanreId);
+                    this.repositoryUOW.GanreRepository.Create(id, genre.GanreId);
                 }
-                this.repositoryUOW.DbHelperOledb.Commit();
+                string fileName = $"{id}{newBookViewModel.Book.BookImage}";
+                this.repositoryUOW.BookRepository.Update(id, fileName);
+                string path = Path.Combine(Directory.GetCurrentDirectory(),
+                                           "wwwroot", 
+                                           "Images",
+                                           "Books",
+                                           fileName);
+                using (Stream stream = new FileStream(path, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+                this.repositoryUOW.Commit();
                 return true;
+
             }
-            catch (Exception ex)
+            catch
             {
-                this.repositoryUOW.DbHelperOledb.RollBack();
+                this.repositoryUOW.Rollback();
                 return false;
             }
             finally
@@ -130,10 +150,10 @@ namespace SchoolLibraryWS.Controllers
         public NewBookViewModel GetNewBookViewModel()
         {
             NewBookViewModel newBookViewModel = new NewBookViewModel();
+            newBookViewModel.Book = null;
             try
             {
                 this.repositoryUOW.DbHelperOledb.OpenConnection();
-                newBookViewModel.Book = null;
                 newBookViewModel.Genres = this.repositoryUOW.GanreRepository.GetAll();
                 newBookViewModel.Authors = this.repositoryUOW.AuthoRepository.GetAll();
                 return newBookViewModel;

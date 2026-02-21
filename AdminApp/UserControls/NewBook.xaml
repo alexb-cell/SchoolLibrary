@@ -17,7 +17,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <BooleanToVisibilityConverter x:Key="boolToVisibility"></BooleanToVisibilityConverter>
+        <BooleanToVisibilityConverter x:Key="boolToVisibility">
+            
+        </BooleanToVisibilityConverter>
     </Window.Resources>
     <Canvas>
         <Label x:Name="label"
@@ -67,18 +69,18 @@
         </Button>
         <Label FontFamily="{StaticResource SpecialElite}"
                Content="Authors" 
-               Canvas.Left="246"
+               Canvas.Left="240"
                Canvas.Top="203" 
                HorizontalAlignment="Left"
                VerticalAlignment="Center"
-               Width="94"/>
+               Width="98"/>
         <ListBox x:Name="listBoxAuthors"
                   Padding="7"
                  SelectionMode="Multiple"
                  Height="82"
-                 Width="149" 
+                 Width="155" 
                  Canvas.Top="221"
-                 Canvas.Left="249" 
+                 Canvas.Left="243" HorizontalAlignment="Left" VerticalAlignment="Center" 
                  >
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -101,17 +103,14 @@
                 />
         <ListBox x:Name="listBoxGenres"
                   Padding="7"
-            SelectionMode="Multiple"
-            Height="83"
-            Width="153"
-            Canvas.Top="222" 
-            Canvas.Left="415" HorizontalAlignment="Left" VerticalAlignment="Center"
-            >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding GanreName}" FontFamily="{StaticResource SpecialElite}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                  SelectionMode="Multiple"
+                  Height="83"
+                  Width="153"
+                  Canvas.Top="222" 
+                  Canvas.Left="415" HorizontalAlignment="Left" VerticalAlignment="Center"
+                  DisplayMemberPath="GanreName"
+                  SelectedValuePath="GanreId">
+          
         </ListBox>
         <Button x:Name="buttonAddBook"
                 Canvas.Left="250"
@@ -121,7 +120,8 @@
                     FontSize="20"
                     FontFamily="{StaticResource SpecialElite}"
                     Foreground="White"
-                    Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    Background="Navy"
+                 Click="buttonAddBook_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/Add.png"></Image>
@@ -135,7 +135,7 @@
         <TextBox x:Name="textBoxBookName"
                  Canvas.Left="236" 
                  TextWrapping="Wrap" 
-                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding Book.BookName, UpdateSourceTrigger=PropertyChanged}"
                  Canvas.Top="49"
                  Padding="7"
                  Width="332"
@@ -172,12 +172,14 @@
         </Button>
         <TextBlock 
                    Canvas.Left="310" 
-                   TextWrapping="Wrap"
-                   Text="{Binding (Validation.Errors)[0].ErrorContent, ElementName=textBoxBookName}"
+                   Foreground="Red"
+                   
+                   Text="{Binding (Validation.Errors)[0].ErrorContent, 
+                                   ElementName=textBoxBookName}"
                    Canvas.Top="26"
                    Visibility="{Binding (Validation.HasError),
                                 Converter={StaticResource boolToVisibility},
-                                ElementName=NameBox}"
+                                ElementName=textBoxBookName}"
                    Width="257" 
             />
         <TextBlock 

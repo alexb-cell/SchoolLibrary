@@ -100,7 +100,9 @@
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/Images/Logout.png" Width="32"></Image>
                     <TextBlock Padding="10">
-                              <Hyperlink Foreground="White" x:Name="hyperlinkLogin"
+                              <Hyperlink Foreground="White"
+                               
+                               x:Name="hyperlinkLogin"
                                FontFamily="{StaticResource MainFont}"
                                TextDecorations="None"
                                FontSize="25"

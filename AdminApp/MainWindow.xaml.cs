@@ -25,12 +25,30 @@ namespace AdminApp
         GenresPage genresPage;
         ReaderPage readerPage;
         BorrowsPage borrowsPage;
+
+        bool isLogin;
+
+        public void SetAdmin(bool isadmin)
+        {
+            this.isLogin = isadmin;
+            HyperlinkState();
+            if (this.isLogin == true)
+                ViewStartPage();
+        }
         public MainWindow()
         {
             InitializeComponent();
             ViewStartPage();
+            this.isLogin = false;
+            HyperlinkState();
         }
-
+        private void HyperlinkState()
+        {
+            this.hyperlinkAuthors.IsEnabled = this.isLogin;
+            this.hyperlinkBooks.IsEnabled = this.isLogin;
+            this.hyperlinkBorrows.IsEnabled = this.isLogin;
+            this.hyperlinkReaders.IsEnabled = this.isLogin;
+        }
         private void ViewStartPage()
         {
             if (this.startPage == null)
@@ -80,7 +98,21 @@ namespace AdminApp
 
         private void hyperlinkLogin_Click(object sender, RoutedEventArgs e)
         {
-            ViewLoginPage();
+            if(this.isLogin==false)
+            {
+
+                ViewLoginPage();
+                this.hyperlinkLogin.Inlines.Clear();
+                this.hyperlinkLogin.Inlines.Add("Logout");
+            }
+            
+            else
+            {
+                this.isLogin = false;
+                this.hyperlinkLogin.Inlines.Clear();
+                this.hyperlinkLogin.Inlines.Add("Login");
+                HyperlinkState();
+            }
         }
 
         private void hyperlinkStartPage_Click(object sender, RoutedEventArgs e)

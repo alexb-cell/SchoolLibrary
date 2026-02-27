@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LibraryWSClient;
 
 namespace AdminApp
 {
@@ -28,6 +29,24 @@ namespace AdminApp
         private void textBoxPassword_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void buttonLoin_Click(object sender, RoutedEventArgs e)
+        {
+            string nickName = this.textBoxNickName.Text;
+            string password = this.textBoxPassword.Text;
+            //  Ws request
+            string id = "1234";
+            if(id !=null)
+            {
+                MainWindow mw = Application.Current.MainWindow as MainWindow;
+                mw.SetAdmin(true);
+
+            }
+            else
+            {
+                // message 
+            }
         }
     }
 }

@@ -59,7 +59,7 @@
                 FontSize="20"
                 FontFamily="{StaticResource SpecialElite}"
                 Foreground="White"
-                Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center">
+                Background="Navy" HorizontalAlignment="Left" VerticalAlignment="Center" Click="buttonLoin_Click">
             <Button.Content>
                 <StackPanel Orientation="Horizontal">
                     <Image Width="32" Source="/Images/logout2.png"></Image>
